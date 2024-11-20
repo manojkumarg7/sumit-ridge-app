@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/sumit-ridge-app/static/css/main.0625ec88.css",
+    "main.js": "/sumit-ridge-app/static/js/main.d5a8d72b.js",
+    "static/js/453.a4f17620.chunk.js": "/sumit-ridge-app/static/js/453.a4f17620.chunk.js",
+    "static/media/srf-favicon.png": "/sumit-ridge-app/static/media/srf-favicon.4026c146dbcf0194c0cb.png",
+    "index.html": "/sumit-ridge-app/index.html",
+    "main.0625ec88.css.map": "/sumit-ridge-app/static/css/main.0625ec88.css.map",
+    "main.d5a8d72b.js.map": "/sumit-ridge-app/static/js/main.d5a8d72b.js.map",
+    "453.a4f17620.chunk.js.map": "/sumit-ridge-app/static/js/453.a4f17620.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0625ec88.css",
+    "static/js/main.d5a8d72b.js"
+  ]
+}
