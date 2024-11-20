@@ -1,0 +1,21 @@
+.dif-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dis-flex {
+  display: flex;
+  justify-content: center;
+}
+
+.dif-grid {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.dis-grid {
+  display: grid;
+  justify-content: center;
+}

@@ -1,0 +1,38 @@
+.main-page-wrapper {
+  margin-top: 60px;
+  display: flex;
+}
+
+.side-bar-page-component {
+  position: fixed;
+  transition: transform 0.3s ease-in-out;
+  z-index: 6;
+}
+
+.side-bar-page-component.hidden {
+  transform: translateX(-100%);
+}
+.side-bar-page-component.visible {
+  transform: translateX(0);
+}
+
+.main-page-component {
+  width: 100%;
+  z-index: 1;
+}
+.main-page-component.visible {
+  margin-left: 160px;
+}
+.main-page-component.hidden {
+  width: 100%;
+}
+@media screen and (max-width: 992px) {
+  .side-bar-page-component {
+    z-index: 6;
+  }
+
+  .main-page-component.visible {
+    z-index: 1;
+    margin-left: 0px;
+  }
+}

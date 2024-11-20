@@ -1,0 +1,38 @@
+@import url("../../Styles/main.css");
+
+.side-bar-wrapper {
+  background-color: var(--light-blue) !important;
+  width: 150px !important;
+  height: 100vh;
+  overflow-y: scroll;
+  /* scrollbar-width: none;
+  -ms-overflow-style: none; */
+}
+
+/* scroll bar */
+.side-bar-wrapper::-webkit-scrollbar {
+  display: none;
+}
+.side-bar-wrapper .side-bar {
+  margin-top: 20px;
+}
+
+.side-bar-wrapper .side-bar > div {
+  cursor: pointer;
+}
+
+.side-bar-wrapper .side-bar .side-bar-active-icon-container {
+  color: var(--dark-seaform);
+}
+
+.side-bar-wrapper .side-bar .side-bar-default-icon-container {
+  color: var(--gull-grey);
+}
+.side-bar-wrapper .side-bar .side-bar-default-icon-container:hover {
+  color: var(--dark-seaform);
+}
+
+.side-bar-wrapper .side-bar .side-bar-icon-name {
+  font-size: var(--fs12);
+  font-weight: 600;
+}

@@ -1,0 +1,48 @@
+@import url("../../Styles/main.css");
+
+/* user profile  */
+#dropdown-basic-button {
+  background-color: #f8f9fa;
+  border: 0;
+  padding: 0;
+}
+
+#dropdown-avatar-button .avatar-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+#dropdown-avatar-button .user-name {
+  color: var(--light-blue);
+}
+
+/* icons Styles */
+
+.icons {
+  color: var(--light-blue);
+  cursor: pointer;
+}
+
+/* these classes u can find in developer tools */
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+button#dropdown-avatar-button {
+  background-color: #f8f9fa;
+  border: 0;
+  padding-left: 0px;
+}
+
+.dropdown-menu {
+  width: 250px;
+}
+/* these classes u find in developer tools */
+
+.notification-icon {
+  font-size: 2rem;
+  margin: 10px;
+  flex-shrink: 0;
+}

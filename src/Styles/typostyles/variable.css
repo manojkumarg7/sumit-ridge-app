@@ -1,0 +1,16 @@
+:root {
+  /* colors */
+  --white: #f6f9ff;
+  --dark-seaform: #fefefe;
+  --baby-blue: #a5c5fe;
+  --light-navy-blue: "#255d8b";
+  --red-berry: #8b0000;
+  --light-blue: #255d8b;
+  --gull-grey: #92aec5;
+  /* font sizes */
+  --fs10: 10px;
+  --fs12: 12px;
+  --fs9: 15px;
+  --fs8: 20px;
+  --fs7: 25px;
+}
