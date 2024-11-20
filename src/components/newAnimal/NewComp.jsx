@@ -8,24 +8,23 @@ import { GrLinkPrevious } from "react-icons/gr";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import PostData from "../../api/post/PostData";
 import Modal from "react-bootstrap/Modal";
 
 const NewComp = ({ dogId }) => {
   const [sex, setSex] = useState("");
-  const [dob, setDob] = useState("");
   const [birthWeight, setBirthWeight] = useState("");
   const [color, setColor] = useState("");
   const [dateAccquired, setDateAccquired] = useState("");
   const [bowl, setBowl] = useState("Yes");
   const [status, setStatus] = useState("Active");
-  const [formData, setFormData] = useState(null);
+  const [dob, setDob] = useState("");
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     if (id) {
@@ -34,9 +33,6 @@ const NewComp = ({ dogId }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
-          console.log(id + " id");
-          console.log(data.dogid + " data.dogid");
           setSex(data.sex);
           setDob(data.dob);
           setBirthWeight(data.birthWeight);
@@ -51,39 +47,19 @@ const NewComp = ({ dogId }) => {
     }
   }, [id]);
 
-  const handleSexChange = (e) => {
-    console.log(e.target.value);
-    setSex(e.target.value);
-  };
-
+  // Handle DOB and Date Acquired change
   const handleDobChange = (e) => {
     setDob(e.target.value);
-    console.log(e.target.value);
   };
 
-  const handleBirthWeight = (e) => {
-    console.log(e.target.value);
-    setBirthWeight(e.target.value);
-  };
-
-  const handleColorChange = (e) => {
-    console.log(e.target.value);
-    setColor(e.target.value);
-  };
-
-  const handleDateAccquired = (e) => {
+  const handleDateAcquiredChange = (e) => {
     setDateAccquired(e.target.value);
-    console.log(e.target.value);
   };
 
-  const handleBowlChange = (event) => {
-    setBowl(event.target.value);
-    console.log("yes triggering");
-  };
-
-  const handleStatusChange = (event) => {
-    console.log(status + " coming ");
-    setStatus(event.target.value);
+  // Helper to format date to YYYY-MM-DD for input
+  const formatDate = (date) => {
+    const d = new Date(date);
+    return d.toISOString().split('T')[0];
   };
 
   const handleSubmit = async (event) => {
@@ -98,17 +74,6 @@ const NewComp = ({ dogId }) => {
       setShow(true);
       setMessage(false);
     } else {
-      console.log("Form is submitted with the following data:");
-      console.log({
-        sex,
-        dob,
-        birthWeight,
-        color,
-        dateAccquired,
-        bowl,
-        status,
-      });
-
       const formData = {
         sex,
         dob,
@@ -133,7 +98,6 @@ const NewComp = ({ dogId }) => {
             }
           );
         } else {
-          // POST request to add a new dog
           response = await fetch(
             "https://673b3047339a4ce4451b092b.mockapi.io/ridge/dogs",
             {
@@ -149,7 +113,6 @@ const NewComp = ({ dogId }) => {
         if (response.ok) {
           setShow(true);
           setMessage(true);
-
           setSex("");
           setDob("");
           setBirthWeight("");
@@ -164,8 +127,6 @@ const NewComp = ({ dogId }) => {
         console.error("Error posting data:", error);
         alert("An error occurred. Please try again.");
       }
-      setFormData(formData);
-      setFormData("");
     }
   };
 
@@ -196,7 +157,7 @@ const NewComp = ({ dogId }) => {
               <Form.Select
                 aria-label="Select Sex"
                 value={sex}
-                onChange={handleSexChange}
+                onChange={(e) => setSex(e.target.value)}
               >
                 <option>Select</option>
                 <option value="Male">Male</option>
@@ -224,7 +185,7 @@ const NewComp = ({ dogId }) => {
                 type="text"
                 placeholder="Enter text"
                 value={birthWeight}
-                onChange={handleBirthWeight}
+                onChange={(e) => setBirthWeight(e.target.value)}
               />
             </Col>
             <Col md={4} className="mb-2">
@@ -235,7 +196,7 @@ const NewComp = ({ dogId }) => {
                 type="text"
                 placeholder="Enter text"
                 value={color}
-                onChange={handleColorChange}
+                onChange={(e) => setColor(e.target.value)}
               />
             </Col>
             <Col md={4} className="mb-2">
@@ -246,7 +207,8 @@ const NewComp = ({ dogId }) => {
                 type="date"
                 placeholder="Enter text"
                 value={dateAccquired}
-                onChange={handleDateAccquired}
+                onChange={handleDateAcquiredChange}
+                min={dob ? formatDate(dob) : undefined} // Restrict Date Acquired based on DOB
               />
             </Col>
           </Row>
@@ -267,7 +229,7 @@ const NewComp = ({ dogId }) => {
                     autoComplete="off"
                     value="Yes"
                     checked={bowl === "Yes"}
-                    onChange={handleBowlChange}
+                    onChange={(e) => setBowl(e.target.value)}
                   />
                   <label
                     className="btn btn-outline-secondary"
@@ -283,7 +245,7 @@ const NewComp = ({ dogId }) => {
                     autoComplete="off"
                     value="No"
                     checked={bowl === "No"}
-                    onChange={handleBowlChange}
+                    onChange={(e) => setBowl(e.target.value)}
                   />
                   <label
                     className="btn btn-outline-secondary"
@@ -294,7 +256,7 @@ const NewComp = ({ dogId }) => {
                 </div>
               </div>
             </div>
-            <div className="col-md-4 col-sm-12 ">
+            <div className="col-md-4 col-sm-12">
               <label className="form-label">Status</label>
               <div className="d-flex">
                 <div
@@ -310,7 +272,7 @@ const NewComp = ({ dogId }) => {
                     autoComplete="off"
                     value="Active"
                     checked={status === "Active"}
-                    onChange={handleStatusChange}
+                    onChange={(e) => setStatus(e.target.value)}
                   />
                   <label
                     className="btn btn-outline-secondary"
@@ -327,7 +289,7 @@ const NewComp = ({ dogId }) => {
                     autoComplete="off"
                     value="Inactive"
                     checked={status === "Inactive"}
-                    onChange={handleStatusChange}
+                    onChange={(e) => setStatus(e.target.value)}
                   />
                   <label
                     className="btn btn-outline-secondary"
@@ -337,7 +299,7 @@ const NewComp = ({ dogId }) => {
                   </label>
                 </div>
               </div>
-            </div>{" "}
+            </div>
           </Row>
           <div className="d-flex justify-content-between mt-4">
             <Link to={"/"}>
@@ -355,19 +317,16 @@ const NewComp = ({ dogId }) => {
         </Container>
       </div>
 
-      {/* If formData is set, render the PostData component */}
-      {/* {formData && <PostData formData={formData} />} */}
-      {/* {formData && <PostData formData={formData} />} */}
-
+      {/* Modal for Success or Error */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title style={{ color: message ? "green" : "red" }}>
-            {message ? "Successs" : "Alert !"}
+            {message ? "Success" : "Alert!"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {message
-            ? "Animal Added SuccessFully"
+            ? "Animal Added Successfully"
             : "All fields are required! Please fill in all the details"}
         </Modal.Body>
         <Modal.Footer>

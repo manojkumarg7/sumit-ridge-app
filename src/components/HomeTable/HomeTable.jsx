@@ -49,14 +49,7 @@ const HomeTable = ({ data, handledeletefunction }) => {
                         <td>{value.dob}</td>
                         <td>{value.birthWeight}</td>
                         <td>{value.color}</td>
-                        <td>{value.dateacquired} </td>
-                        {/* <td
-                          style={{
-                            color: value.bowl === "Yes" ? "green" : "red",
-                          }}
-                        >
-                          {value.bowl}
-                        </td> */}
+                        <td>{value.dateAccquired} </td>
                         <td> {value.bowl}</td>
                         <td
                           style={{
