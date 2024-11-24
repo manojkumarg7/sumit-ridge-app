@@ -20,10 +20,24 @@ const NewComp = ({ dogId }) => {
   const [dob, setDob] = useState("");
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState(false);
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const [errors, setErrors] = useState({
+    sex: false,
+    birthWeight: false,
+    color: false,
+    dateAccquired: false,
+    dob: false,
+  });
 
-  const handleClose = () => setShow(false);
+  const [shouldNavigate, setShouldNavigate] = useState(false);
+  const { id } = useParams();
+
+  const navigate = useNavigate();
+  const handleClose = () => {
+    setShow(false);
+    if (shouldNavigate) {
+      navigate("/");
+    }
+  };
   const handleShow = () => setShow(true);
 
   useEffect(() => {
@@ -47,7 +61,6 @@ const NewComp = ({ dogId }) => {
     }
   }, [id]);
 
-  // Handle DOB and Date Acquired change
   const handleDobChange = (e) => {
     setDob(e.target.value);
   };
@@ -56,13 +69,20 @@ const NewComp = ({ dogId }) => {
     setDateAccquired(e.target.value);
   };
 
-  // Helper to format date to YYYY-MM-DD for input
   const formatDate = (date) => {
     const d = new Date(date);
-    return d.toISOString().split('T')[0];
+    return d.toISOString().split("T")[0];
   };
 
   const handleSubmit = async (event) => {
+    let formErrors = { ...errors };
+
+    formErrors.sex = sex === "";
+    formErrors.dob = dob === "";
+    formErrors.color = color === "";
+    formErrors.birthWeight = birthWeight === "";
+    formErrors.dateAccquired = dateAccquired === "";
+    setErrors(formErrors);
     event.preventDefault();
     if (
       sex === "" ||
@@ -113,6 +133,9 @@ const NewComp = ({ dogId }) => {
         if (response.ok) {
           setShow(true);
           setMessage(true);
+
+          setShouldNavigate(true);
+
           setSex("");
           setDob("");
           setBirthWeight("");
@@ -157,12 +180,18 @@ const NewComp = ({ dogId }) => {
               <Form.Select
                 aria-label="Select Sex"
                 value={sex}
+                isInvalid={errors.sex}
                 onChange={(e) => setSex(e.target.value)}
               >
                 <option>Select</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </Form.Select>
+              {errors.sex && (
+                <Form.Control.Feedback type="invalid">
+                  This Field is Required
+                </Form.Control.Feedback>
+              )}
             </Col>
             <Col md={4} className="mb-2">
               <p className="mb-0 text-muted small fw-semibold">
@@ -170,10 +199,17 @@ const NewComp = ({ dogId }) => {
               </p>
               <Form.Control
                 type="date"
+                aria-label="Select Sex"
                 placeholder="Enter text"
+                isInvalid={errors.dob}
                 value={dob}
                 onChange={handleDobChange}
               />
+              {errors.dob && (
+                <Form.Control.Feedback type="invalid">
+                  This Field is Required
+                </Form.Control.Feedback>
+              )}
             </Col>
           </Row>
           <Row className="mb-sm-2 mb-0">
@@ -184,9 +220,15 @@ const NewComp = ({ dogId }) => {
               <Form.Control
                 type="text"
                 placeholder="Enter text"
+                isInvalid={errors.birthWeight}
                 value={birthWeight}
                 onChange={(e) => setBirthWeight(e.target.value)}
               />
+              {errors.birthWeight && (
+                <Form.Control.Feedback type="invalid">
+                  This Field is Required
+                </Form.Control.Feedback>
+              )}
             </Col>
             <Col md={4} className="mb-2">
               <p className="mb-0 text-muted small fw-semibold">
@@ -195,9 +237,15 @@ const NewComp = ({ dogId }) => {
               <Form.Control
                 type="text"
                 placeholder="Enter text"
+                isInvalid={errors.color}
                 value={color}
                 onChange={(e) => setColor(e.target.value)}
               />
+              {errors.color && (
+                <Form.Control.Feedback type="invalid">
+                  This Field is Required
+                </Form.Control.Feedback>
+              )}
             </Col>
             <Col md={4} className="mb-2">
               <p className="mb-0 text-muted small fw-semibold">
@@ -206,10 +254,16 @@ const NewComp = ({ dogId }) => {
               <Form.Control
                 type="date"
                 placeholder="Enter text"
+                isInvalid={errors.dateAccquired}
                 value={dateAccquired}
                 onChange={handleDateAcquiredChange}
-                min={dob ? formatDate(dob) : undefined} // Restrict Date Acquired based on DOB
+                min={dob ? formatDate(dob) : undefined}
               />
+              {errors.dateAccquired && (
+                <Form.Control.Feedback type="invalid">
+                  This Field is Required
+                </Form.Control.Feedback>
+              )}
             </Col>
           </Row>
           <Row className="mb-sm-2 mb-0">
@@ -316,8 +370,6 @@ const NewComp = ({ dogId }) => {
           </div>
         </Container>
       </div>
-
-      {/* Modal for Success or Error */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title style={{ color: message ? "green" : "red" }}>

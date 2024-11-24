@@ -6,8 +6,11 @@ import { BiEdit } from "react-icons/bi";
 import Button from "react-bootstrap/Button";
 import { FaPlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-
+import { GoDotFill } from "react-icons/go";
+import DataTable from "datatables.net-dt";
 const HomeTable = ({ data, handledeletefunction }) => {
+  let table = new DataTable("#myTable");
+
   return (
     <div>
       <div className="page-title">
@@ -44,24 +47,26 @@ const HomeTable = ({ data, handledeletefunction }) => {
                   data.map((value, index) => {
                     return (
                       <tr key={index}>
-                        <td>{value.dogid}</td>
-                        <td>{value.sex}</td>
-                        <td>{value.dob}</td>
-                        <td>{value.birthWeight}</td>
+                        <td>{value.dogid || "Manoj"}</td>
+                        <td>{value.sex || "Male"}</td>
+                        <td>{value.dob || "dob"}</td>
+                        <td>{value.birthWeight || "escape"}</td>
                         <td>{value.color}</td>
                         <td>{value.dateAccquired} </td>
                         <td> {value.bowl}</td>
-                        <td
-                          style={{
-                            color: value.status === "Active" ? "green" : "red",
-                          }}
-                        >
+                        <td>
+                          <GoDotFill
+                            style={{
+                              color:
+                                value.status === "Active" ? "green" : "red",
+                            }}
+                          />
                           {value.status}
                         </td>
                         <td>
                           <div className="d-flex gap-2 align-items-center">
                             <Link to={`/edit/${value.id}`}>
-                              <BiEdit className="home-page-actions-icons mt-1 text-success" />
+                              <BiEdit className="home-page-actions-icons mt-1 text-primary" />
                             </Link>
                             <RiDeleteBin6Line
                               className="home-page-actions-icons mt-1 text-danger"
