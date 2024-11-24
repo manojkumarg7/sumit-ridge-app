@@ -35,7 +35,7 @@ const NewComp = ({ dogId }) => {
   const handleClose = () => {
     setShow(false);
     if (shouldNavigate) {
-      navigate("/");
+      navigate("/sumit-ridge-app");
     }
   };
   const handleShow = () => setShow(true);
@@ -156,219 +156,243 @@ const NewComp = ({ dogId }) => {
   return (
     <div>
       <div className="page-title d-flex align-items-center gap-2 ms-3">
-        <Link to={"/"}>
+        <Link to={"/sumit-ridge-app"}>
           <GrLinkPrevious className="fw-bold fs-5" />
         </Link>
         <h5 className="fw-semibold text-left my-3"> Add a New Animal</h5>
       </div>
       <div className="animal-container p-3">
-        <Container fluid>
-          <Row className="mb-sm-2 mb-0">
-            <Col md={4} className="mb-2">
-              <p className="mb-0 text-muted small fw-semibold">Animal Id</p>
-              <Form.Control
-                type="text"
-                placeholder="Auto generate"
-                value={dogId}
-                disabled
-              />
-            </Col>
-            <Col md={4} className="mb-2">
-              <p className="mb-0 text-muted small fw-semibold">
-                Sex <span className="text-danger">*</span>
-              </p>
-              <Form.Select
-                aria-label="Select Sex"
-                value={sex}
-                isInvalid={errors.sex}
-                onChange={(e) => setSex(e.target.value)}
-              >
-                <option>Select</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </Form.Select>
-              {errors.sex && (
-                <Form.Control.Feedback type="invalid">
-                  This Field is Required
-                </Form.Control.Feedback>
-              )}
-            </Col>
-            <Col md={4} className="mb-2">
-              <p className="mb-0 text-muted small fw-semibold">
-                DOB<span className="text-danger">*</span>
-              </p>
-              <Form.Control
-                type="date"
-                aria-label="Select Sex"
-                placeholder="Enter text"
-                isInvalid={errors.dob}
-                value={dob}
-                onChange={handleDobChange}
-              />
-              {errors.dob && (
-                <Form.Control.Feedback type="invalid">
-                  This Field is Required
-                </Form.Control.Feedback>
-              )}
-            </Col>
-          </Row>
-          <Row className="mb-sm-2 mb-0">
-            <Col md={4} className="mb-2">
-              <p className="mb-0 text-muted small fw-semibold">
-                Birth Weight <span className="text-danger">*</span>
-              </p>
-              <Form.Control
-                type="text"
-                placeholder="Enter text"
-                isInvalid={errors.birthWeight}
-                value={birthWeight}
-                onChange={(e) => setBirthWeight(e.target.value)}
-              />
-              {errors.birthWeight && (
-                <Form.Control.Feedback type="invalid">
-                  This Field is Required
-                </Form.Control.Feedback>
-              )}
-            </Col>
-            <Col md={4} className="mb-2">
-              <p className="mb-0 text-muted small fw-semibold">
-                Color <span className="text-danger">*</span>
-              </p>
-              <Form.Control
-                type="text"
-                placeholder="Enter text"
-                isInvalid={errors.color}
-                value={color}
-                onChange={(e) => setColor(e.target.value)}
-              />
-              {errors.color && (
-                <Form.Control.Feedback type="invalid">
-                  This Field is Required
-                </Form.Control.Feedback>
-              )}
-            </Col>
-            <Col md={4} className="mb-2">
-              <p className="mb-0 text-muted small fw-semibold">
-                Date Acquired <span className="text-danger">*</span>
-              </p>
-              <Form.Control
-                type="date"
-                placeholder="Enter text"
-                isInvalid={errors.dateAccquired}
-                value={dateAccquired}
-                onChange={handleDateAcquiredChange}
-                min={dob ? formatDate(dob) : undefined}
-              />
-              {errors.dateAccquired && (
-                <Form.Control.Feedback type="invalid">
-                  This Field is Required
-                </Form.Control.Feedback>
-              )}
-            </Col>
-          </Row>
-          <Row className="mb-sm-2 mb-0">
-            <div className="col-md-4 col-sm-12">
-              <label className="form-label">Bowl</label>
-              <div className="d-flex">
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Basic radio toggle button group"
+        <Form onSubmit={handleSubmit}>
+          <Container fluid>
+            <Row className="mb-sm-2 mb-0">
+              <Form.Group as={Col} md="4" controlId="validationCustom01">
+                <p className="mb-0 text-muted small fw-semibold">Animal Id</p>
+                <Form.Control
+                  type="text"
+                  placeholder="Auto generate"
+                  value={dogId}
+                  disabled
+                />
+              </Form.Group>
+              <Form.Group as={Col} md="4" controlId="validationFormikSex">
+                <Form.Label className="mb-0">
+                  Sex <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Select
+                  aria-label="Select Sex"
+                  name="sex"
+                  value={sex}
+                  onChange={(e) => setSex(e.target.value)}
+                  isInvalid={errors.sex}
+                  isValid={sex && !errors.sex}
                 >
-                  <input
-                    type="radio"
-                    className="btn-check"
-                    name="btnbowlradio"
-                    id="btnradio3"
-                    autoComplete="off"
-                    value="Yes"
-                    checked={bowl === "Yes"}
-                    onChange={(e) => setBowl(e.target.value)}
-                  />
-                  <label
-                    className="btn btn-outline-secondary"
-                    htmlFor="btnradio3"
-                  >
-                    Yes
-                  </label>
-                  <input
-                    type="radio"
-                    className="btn-check"
-                    name="btnbowlradio"
-                    id="btnradio4"
-                    autoComplete="off"
-                    value="No"
-                    checked={bowl === "No"}
-                    onChange={(e) => setBowl(e.target.value)}
-                  />
-                  <label
-                    className="btn btn-outline-secondary"
-                    htmlFor="btnradio4"
-                  >
-                    No
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 col-sm-12">
-              <label className="form-label">Status</label>
-              <div className="d-flex">
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Basic radio toggle button group"
-                >
-                  <input
-                    type="radio"
-                    className="btn-check"
-                    name="btnradio"
-                    id="btnradio1"
-                    autoComplete="off"
-                    value="Active"
-                    checked={status === "Active"}
-                    onChange={(e) => setStatus(e.target.value)}
-                  />
-                  <label
-                    className="btn btn-outline-secondary"
-                    htmlFor="btnradio1"
-                  >
-                    Active
-                  </label>
+                  <option>Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </Form.Select>
 
-                  <input
-                    type="radio"
-                    className="btn-check"
-                    name="btnradio"
-                    id="btnradio2"
-                    autoComplete="off"
-                    value="Inactive"
-                    checked={status === "Inactive"}
-                    onChange={(e) => setStatus(e.target.value)}
-                  />
-                  <label
-                    className="btn btn-outline-secondary"
-                    htmlFor="btnradio2"
+                <Form.Control.Feedback type="invalid">
+                  {errors.sex ? "This Field is Required" : ""}
+                </Form.Control.Feedback>
+
+                <Form.Control.Feedback type="valid">
+                  Looks good!
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group as={Col} md={4} className="mb-2">
+                <Form.Label className="mb-0 text-muted small fw-semibold">
+                  DOB <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="date"
+                  aria-label="Select Date of Birth"
+                  value={dob}
+                  onChange={handleDobChange}
+                  isInvalid={errors.dob}
+                  isValid={dob && !errors.dob}
+                />
+
+                <Form.Control.Feedback type="invalid">
+                  {errors.dob && "This Field is Required"}
+                </Form.Control.Feedback>
+
+                <Form.Control.Feedback type="valid">
+                  Looks Good
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+            <Row className="mb-sm-2 mb-0">
+              <Form.Group as={Col} md={4} className="mb-2">
+                <Form.Label className="mb-0 text-muted small fw-semibold">
+                  Birth Weight <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter text"
+                  isInvalid={errors.birthWeight}
+                  value={birthWeight}
+                  isValid={birthWeight && !errors.birthWeight}
+                  onChange={(e) => setBirthWeight(e.target.value)}
+                />
+
+                <Form.Control.Feedback type="invalid">
+                  {errors.birthWeight && "  This Field is Required"}
+                </Form.Control.Feedback>
+
+                <Form.Control.Feedback type="valid">
+                  Looks Good
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group as={Col} md={4} className="mb-2">
+                <Form.Label className="mb-0 text-muted small fw-semibold">
+                  Color <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter text"
+                  isInvalid={errors.color}
+                  isValid={color && !errors.color}
+                  value={color}
+                  onChange={(e) => setColor(e.target.value)}
+                />
+                {errors.color && (
+                  <Form.Control.Feedback type="invalid">
+                    This Field is Required
+                  </Form.Control.Feedback>
+                )}
+
+                <Form.Control.Feedback type="valid">
+                  Looks Good
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group as={Col} md={4} className="mb-2">
+                <Form.Label className="mb-0 text-muted small fw-semibold">
+                  Date Acquired <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="date"
+                  placeholder="Enter text"
+                  isInvalid={errors.dateAccquired}
+                  isValid={dateAccquired && !errors.dateAccquired}
+                  value={dateAccquired}
+                  onChange={handleDateAcquiredChange}
+                  min={dob ? formatDate(dob) : undefined}
+                />
+                {errors.dateAccquired && (
+                  <Form.Control.Feedback type="invalid">
+                    This Field is Required
+                  </Form.Control.Feedback>
+                )}
+
+                <Form.Control.Feedback type="valid">
+                  Looks Good
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+            <Row className="mb-sm-2 mb-0">
+              <div className="col-md-4 col-sm-12">
+                <label className="form-label">Bowl</label>
+                <div className="d-flex">
+                  <div
+                    className="btn-group"
+                    role="group"
+                    aria-label="Basic radio toggle button group"
                   >
-                    Inactive
-                  </label>
+                    <input
+                      type="radio"
+                      className="btn-check"
+                      name="btnbowlradio"
+                      id="btnradio3"
+                      autoComplete="off"
+                      value="Yes"
+                      checked={bowl === "Yes"}
+                      onChange={(e) => setBowl(e.target.value)}
+                    />
+                    <label
+                      className="btn btn-outline-secondary"
+                      htmlFor="btnradio3"
+                    >
+                      Yes
+                    </label>
+                    <input
+                      type="radio"
+                      className="btn-check"
+                      name="btnbowlradio"
+                      id="btnradio4"
+                      autoComplete="off"
+                      value="No"
+                      checked={bowl === "No"}
+                      onChange={(e) => setBowl(e.target.value)}
+                    />
+                    <label
+                      className="btn btn-outline-secondary"
+                      htmlFor="btnradio4"
+                    >
+                      No
+                    </label>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Row>
-          <div className="d-flex justify-content-between mt-4">
-            <Link to={"/"}>
-              <Button
-                variant="light"
-                className="border-2 border-dark text-danger"
-              >
-                Cancel
+              <div className="col-md-4 col-sm-12">
+                <label className="form-label">Status</label>
+                <div className="d-flex">
+                  <div
+                    className="btn-group"
+                    role="group"
+                    aria-label="Basic radio toggle button group"
+                  >
+                    <input
+                      type="radio"
+                      className="btn-check"
+                      name="btnradio"
+                      id="btnradio1"
+                      autoComplete="off"
+                      value="Active"
+                      checked={status === "Active"}
+                      onChange={(e) => setStatus(e.target.value)}
+                    />
+                    <label
+                      className="btn btn-outline-secondary"
+                      htmlFor="btnradio1"
+                    >
+                      Active
+                    </label>
+
+                    <input
+                      type="radio"
+                      className="btn-check"
+                      name="btnradio"
+                      id="btnradio2"
+                      autoComplete="off"
+                      value="Inactive"
+                      checked={status === "Inactive"}
+                      onChange={(e) => setStatus(e.target.value)}
+                    />
+                    <label
+                      className="btn btn-outline-secondary"
+                      htmlFor="btnradio2"
+                    >
+                      Inactive
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </Row>
+            <div className="d-flex justify-content-between mt-4">
+              <Link to={"/sumit-ridge-app"}>
+                <Button
+                  variant="light"
+                  className="border-2 border-dark text-danger"
+                >
+                  Cancel
+                </Button>
+              </Link>
+              <Button variant="danger" type="submit">
+                Submit
               </Button>
-            </Link>
-            <Button variant="danger" type="submit" onClick={handleSubmit}>
-              Submit
-            </Button>
-          </div>
-        </Container>
+            </div>
+          </Container>
+        </Form>
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

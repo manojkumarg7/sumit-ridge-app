@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <BrowserRouter future={{ v7_startTransition: true }}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/sumit-ridge-app" element={<Home />} />
           <Route path="/new" element={<NewAnimalPage />} />
           <Route path="/get" element={<GetData />} />
           <Route path="/post" element={<PostData />} />
