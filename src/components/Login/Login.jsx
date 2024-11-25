@@ -12,7 +12,7 @@ const Login = () => {
       <div className="login-wrapper">
         <div className="container w-100 h-100 d-md-flex justify-content-between align-items-center flex-wrap gap-0">
           <div className="left-content align-self-start">
-            <h1 class="fw-bold pt-5 ps-5 ">
+            <h1 className="fw-bold pt-5 ps-5 ">
               Your Pet Deserves
               <br /> the Best...
             </h1>

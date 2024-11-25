@@ -33,14 +33,13 @@
   background-color: rgb(123, 26, 26);
 }
 
-/* .login-form {
-  display: grid;
-  align-items: center;
-}
-
-@media (max-width: 700px) {
-  .login-form {
-    display: grid;
-    align-items: center;
+@media (max-width: 800px) {
+  .left-content {
+    text-align: center;
   }
-} */
+
+  .login-body {
+    margin-inline: auto;
+    margin-top: 30px;
+  }
+}

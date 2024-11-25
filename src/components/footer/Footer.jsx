@@ -7,10 +7,10 @@ const Footer = () => {
   return (
     <div className="border-1">
       <Navbar className="bg-body-tertiary justify-content-between px-3  border-top border-info">
-        <Form inline>
+        <Form>
           <img src={footerimg} alt="" className="logo" />
         </Form>
-        <Form inline>
+        <Form>
           <p className="text-info fs-6 fs-md-2 mb-0">
             ©2024 By Summit Ridge Farms
           </p>
