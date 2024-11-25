@@ -75,14 +75,6 @@ const NewComp = ({ dogId }) => {
   };
 
   const handleSubmit = async (event) => {
-    // const form = event.currentTarget;
-    // if (form.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
-
-    // setValidated(true);
-
     let formErrors = { ...errors };
 
     formErrors.sex = sex === "";

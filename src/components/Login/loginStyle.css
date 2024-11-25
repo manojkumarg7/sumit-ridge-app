@@ -33,12 +33,17 @@
   background-color: rgb(123, 26, 26);
 }
 
+.login-forget-text:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 800px) {
   .left-content {
     text-align: center;
   }
 
   .login-body {
+    width: 300px;
     margin-inline: auto;
     margin-top: 30px;
   }

@@ -16,6 +16,7 @@ import { LiaSignOutAltSolid } from "react-icons/lia";
 import { IoAlertCircleOutline } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 import { GrFormNextLink } from "react-icons/gr";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavComp = ({ setSidebarVisible }) => {
   const [isToggle, setToggle] = useState(false);
@@ -23,6 +24,12 @@ const NavComp = ({ setSidebarVisible }) => {
   const handleClick = () => {
     setToggle(!isToggle);
     setSidebarVisible(!isToggle);
+  };
+
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/sumit-ridge-app/login");
   };
 
   return (
@@ -155,9 +162,16 @@ const NavComp = ({ setSidebarVisible }) => {
               My Profile
             </Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item href="#/action-3" className="text-muted">
+            <Dropdown.Item
+              href="/sumit-ridge-app/login"
+              as="button"
+              className="text-muted"
+              onClick={handleNavigate}
+            >
+              {/* <Link to="/sumit-ridge-app/login"> */}
               <LiaSignOutAltSolid className="fs-5 me-2 text-danger" />
               Signout
+              {/* </Link> */}
             </Dropdown.Item>
           </DropdownButton>
         </div>
