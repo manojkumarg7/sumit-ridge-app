@@ -15,13 +15,12 @@ function App() {
       <BrowserRouter future={{ v7_startTransition: true }}>
         <Routes>
           <Route path="/sumit-ridge-app" element={<Home />} />
-          <Route path="/new" element={<NewAnimalPage />} />
+          <Route path="/sumit-ridge-app/new" element={<NewAnimalPage />} />
           <Route path="/get" element={<GetData />} />
-          <Route path="/post" element={<PostData />} />
           <Route path="/edit/:id" element={<NewAnimalPage />} />
           <Route path="/chat" element={<PieChart />} />
           <Route path="/mainchat" element={<MainChart />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/sumit-ridge-app/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -18,7 +18,7 @@ const HomeTable = ({ data, handledeletefunction }) => {
       </div>
       <section>
         <div className="table-container">
-          <Link to={"/new"}>
+          <Link to={"/sumit-ridge-app/new"}>
             <Button
               variant="light"
               className="border border-danger text-danger d-flex gap-3 align-items-center ms-auto mb-4 me-3"
