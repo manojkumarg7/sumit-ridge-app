@@ -25,7 +25,6 @@ const Login = () => {
               <img src={logow} alt="logo-image" />
               <p className="login-text fw-semibold">Login To Continue</p>
             </div>
-
             <form action="" className="mt-5">
               <InputGroup className="mb-3 px-3">
                 <InputGroup.Text id="basic-addon1">

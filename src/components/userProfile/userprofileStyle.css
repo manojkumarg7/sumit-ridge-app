@@ -1,0 +1,20 @@
+.user-profile-wrapper {
+  background-image: url("../../assets/images/login-bg.jpg");
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-profile-label {
+  color: brown;
+}
+
+.user-profile-btn {
+  background-color: brown !important;
+  border: 0;
+}
+.user-profile-btn:hover {
+  background-color: brown;
+}

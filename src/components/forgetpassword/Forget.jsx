@@ -36,7 +36,7 @@ const Forget = () => {
             <Button
               type="submit"
               size="sm"
-              className="forget-comp-icon border-0"
+              className="forget-comp-btn border-0"
             >
               Email me
             </Button>

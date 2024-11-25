@@ -66,7 +66,7 @@ const HomeTable = ({ data, handledeletefunction }) => {
                         <td>
                           <div className="d-flex gap-2 align-items-center">
                             <Link to={`/edit/${value.id}`}>
-                              <BiEdit className="home-page-actions-icons mt-1 text-primary" />
+                              <BiEdit className="home-page-actions-icons mt-1" />
                             </Link>
                             <RiDeleteBin6Line
                               className="home-page-actions-icons mt-1 text-danger"
