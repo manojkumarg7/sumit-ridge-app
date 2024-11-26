@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/sumit-ridge-app/static/css/main.997b3dbb.css",
-    "main.js": "/sumit-ridge-app/static/js/main.cb3be7a4.js",
+    "main.css": "/sumit-ridge-app/static/css/main.6e238625.css",
+    "main.js": "/sumit-ridge-app/static/js/main.70fde939.js",
     "static/js/453.a4f17620.chunk.js": "/sumit-ridge-app/static/js/453.a4f17620.chunk.js",
     "static/media/login-bg.jpg": "/sumit-ridge-app/static/media/login-bg.74ef89bdce341f9627f5.jpg",
     "static/media/srf-favicon.png": "/sumit-ridge-app/static/media/srf-favicon.4026c146dbcf0194c0cb.png",
     "index.html": "/sumit-ridge-app/index.html",
-    "main.997b3dbb.css.map": "/sumit-ridge-app/static/css/main.997b3dbb.css.map",
-    "main.cb3be7a4.js.map": "/sumit-ridge-app/static/js/main.cb3be7a4.js.map",
+    "main.6e238625.css.map": "/sumit-ridge-app/static/css/main.6e238625.css.map",
+    "main.70fde939.js.map": "/sumit-ridge-app/static/js/main.70fde939.js.map",
     "453.a4f17620.chunk.js.map": "/sumit-ridge-app/static/js/453.a4f17620.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.997b3dbb.css",
-    "static/js/main.cb3be7a4.js"
+    "static/css/main.6e238625.css",
+    "static/js/main.70fde939.js"
   ]
 }
