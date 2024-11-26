@@ -9,17 +9,23 @@ import Button from "react-bootstrap/Button";
 import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { GrFormPreviousLink } from "react-icons/gr";
+import { FaEyeSlash } from "react-icons/fa";
 import PostLogin from "../../api/loginApis/loginPost/PostLogin";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [eyeToggle, setEyeToggle] = useState(true);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const handlePasswordToggle = () => {
+    setEyeToggle(!eyeToggle);
   };
 
   const handleSubmit = async (e) => {
@@ -54,9 +60,9 @@ const Login = () => {
             </div>
             <Form className="mt-5" onSubmit={handleSubmit}>
               <InputGroup className="mb-3 px-3">
-                <InputGroup.Text id="basic-addon1">
+                {/* <InputGroup.Text id="basic-addon1">
                   <FaUser className="icon" />
-                </InputGroup.Text>
+                </InputGroup.Text> */}
                 <Form.Control
                   type="email"
                   value={email}
@@ -67,19 +73,23 @@ const Login = () => {
                 />
               </InputGroup>
               <InputGroup className="mb-3 px-3">
-                <InputGroup.Text id="basic-addon1">
-                  <RiLockPasswordFill className="icon" />
-                </InputGroup.Text>
                 <Form.Control
-                  type="password"
+                  type={eyeToggle ? "password" : "text"}
                   value={password}
                   placeholder="Password"
                   aria-label="Password"
                   aria-describedby="basic-addon2"
                   onChange={handlePasswordChange}
                 />
-                <InputGroup.Text id="basic-addon2">
-                  <FaEye className="icon" />
+                <InputGroup.Text
+                  id="basic-addon2"
+                  onClick={handlePasswordToggle}
+                >
+                  {eyeToggle ? (
+                    <FaEyeSlash className="icon" />
+                  ) : (
+                    <FaEye className="icon" />
+                  )}
                 </InputGroup.Text>
               </InputGroup>
               <Button
@@ -90,20 +100,22 @@ const Login = () => {
                 Login
               </Button>
               <p className="text-center mt-3">
-                <Link to="/sumit-ridge-app/forget">
+                <Link to={"/sumit-ridge-app/signup"}>
+                  <span className="text-primary text-decoration-underline">
+                    Signup
+                  </span>
+                </Link>
+                {/* <Link to="/sumit-ridge-app/forget">
                   <span className="login-info login-forget-text">
                     Forgot password?
                   </span>
-                </Link>
-                <span className="text-primary text-decoration-underline">
-                  Signup
-                </span>
+                </Link> */}
               </p>
-              <p className="text-center mt-2">
+              {/* <p className="text-center mt-2">
                 <Link to="/sumit-ridge-app">
                   <GrFormPreviousLink className="h5 me-3 text-danger text-center" />
                 </Link>
-              </p>
+              </p> */}
             </Form>
           </div>
         </div>

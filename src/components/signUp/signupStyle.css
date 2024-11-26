@@ -1,0 +1,32 @@
+.sign-up-wrapper {
+  background-image: url("../../assets/images/login-bg.jpg");
+  height: 100vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.sign-up-wrapper .sign-up-label {
+  font-size: 12px;
+}
+
+.sign-up-body {
+  width: 350px;
+}
+
+.sign-up-btn {
+  background-color: brown;
+  border: 0;
+  color: white;
+}
+.sign-up-btn:hover {
+  background-color: brown;
+}
+
+.sign-up-label {
+  color: brown;
+}
