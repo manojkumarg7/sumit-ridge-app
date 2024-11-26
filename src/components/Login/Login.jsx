@@ -24,11 +24,16 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await PostLogin(email, password);
-    if (result) {
-      setEmail("");
-      setPassword("");
-      console.log("Login successful, user data: ", result);
+
+    if (!email && !password) {
+      alert("fields should required");
+    } else {
+      const result = await PostLogin(email, password);
+      if (result) {
+        setEmail("");
+        setPassword("");
+        console.log("Login successful, user data: ", result);
+      }
     }
   };
 
