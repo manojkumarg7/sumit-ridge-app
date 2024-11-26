@@ -21,9 +21,9 @@ const HomeTable = ({ data, handledeletefunction }) => {
           <Link to={"/sumit-ridge-app/new"}>
             <Button
               variant="light"
-              className="border border-danger text-danger d-flex gap-3 align-items-center ms-auto mb-4 me-3"
+              className="home-comp-animal-btn home-comp-color d-flex gap-3 align-items-center ms-auto mb-4 me-3"
             >
-              <FaPlus />
+              <FaPlus className="home-comp-color" />
               Add New Animal
             </Button>
           </Link>

@@ -159,7 +159,9 @@ const NewComp = ({ dogId }) => {
         <Link to={"/sumit-ridge-app"}>
           <GrLinkPrevious className="fw-bold fs-5" />
         </Link>
-        <h5 className="fw-semibold text-left my-3"> Add a New Animal</h5>
+        <h5 className="fw-semibold text-left my-3">
+          {id ? "Edit a new animal" : "Add a new animal"}
+        </h5>
       </div>
       <div className="animal-container p-3">
         <Form onSubmit={handleSubmit}>
@@ -402,7 +404,9 @@ const NewComp = ({ dogId }) => {
         </Modal.Header>
         <Modal.Body>
           {message
-            ? "Animal Added Successfully"
+            ? id
+              ? "Animal Updated Successfully"
+              : "Animal Added Successfully"
             : "All fields are required! Please fill in all the details"}
         </Modal.Body>
         <Modal.Footer>

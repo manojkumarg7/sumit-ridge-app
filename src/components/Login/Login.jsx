@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./loginStyle.css";
 import logow from "../../assets/images/srf-favicon.png";
 import Form from "react-bootstrap/Form";
@@ -9,7 +9,29 @@ import Button from "react-bootstrap/Button";
 import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { GrFormPreviousLink } from "react-icons/gr";
+import PostLogin from "../../api/loginApis/loginPost/PostLogin";
+
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const result = await PostLogin(email, password);
+    if (result) {
+      setEmail("");
+      setPassword("");
+      console.log("Login successful, user data: ", result);
+    }
+  };
+
   return (
     <React.Fragment>
       <div className="login-wrapper">
@@ -25,41 +47,48 @@ const Login = () => {
               <img src={logow} alt="logo-image" />
               <p className="login-text fw-semibold">Login To Continue</p>
             </div>
-            <form action="" className="mt-5">
+            <Form className="mt-5" onSubmit={handleSubmit}>
               <InputGroup className="mb-3 px-3">
                 <InputGroup.Text id="basic-addon1">
                   <FaUser className="icon" />
                 </InputGroup.Text>
                 <Form.Control
                   type="email"
+                  value={email}
                   placeholder="Email"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
+                  onChange={handleEmailChange}
                 />
               </InputGroup>
               <InputGroup className="mb-3 px-3">
                 <InputGroup.Text id="basic-addon1">
-                  <RiLockPasswordFill className="icon" />{" "}
+                  <RiLockPasswordFill className="icon" />
                 </InputGroup.Text>
                 <Form.Control
                   type="password"
+                  value={password}
                   placeholder="Password"
                   aria-label="Password"
-                  aria-describedby="basic-addon1"
+                  aria-describedby="basic-addon2"
+                  onChange={handlePasswordChange}
                 />
-                <InputGroup.Text id="basic-addon1">
+                <InputGroup.Text id="basic-addon2">
                   <FaEye className="icon" />
                 </InputGroup.Text>
               </InputGroup>
-              <Button variant="primary" className="form-btn ms-3 border-0">
+              <Button
+                variant="primary"
+                type="submit"
+                className="form-btn ms-3 border-0"
+              >
                 Login
               </Button>
               <p className="text-center mt-3">
                 <Link to="/sumit-ridge-app/forget">
                   <span className="login-info login-forget-text">
-                    {" "}
                     Forgot password?
-                  </span>{" "}
+                  </span>
                 </Link>
                 <span className="text-primary text-decoration-underline">
                   Signup
@@ -70,7 +99,7 @@ const Login = () => {
                   <GrFormPreviousLink className="h5 me-3 text-danger text-center" />
                 </Link>
               </p>
-            </form>
+            </Form>
           </div>
         </div>
       </div>

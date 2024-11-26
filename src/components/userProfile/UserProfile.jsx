@@ -25,7 +25,6 @@ const UserProfile = () => {
             <Form.Label>Upload avatar</Form.Label>
             <Form.Control type="file" size="sm" />
           </Form.Group>
-
           <Form>
             <Form.Group controlId="validationCustom01">
               <Form.Label className="user-profile-label">User name</Form.Label>
@@ -63,9 +62,8 @@ const UserProfile = () => {
                 <FaEye className="icon" />
               </InputGroup.Text>
             </InputGroup>
-
             <Button className="user-profile-btn w-100 mt-3" size="md" active>
-              Button
+              Add Profile
             </Button>
           </Form>
         </div>

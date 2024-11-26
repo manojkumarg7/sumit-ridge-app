@@ -10,6 +10,14 @@
   margin-inline: 10px;
 }
 
+.home-comp-animal-btn {
+  border: 1px solid brown;
+}
+
+.home-comp-color {
+  color: brown;
+}
+
 table {
   width: 100%;
   min-width: 700px;
