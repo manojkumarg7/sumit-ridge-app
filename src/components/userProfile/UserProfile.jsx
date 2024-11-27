@@ -17,7 +17,7 @@ import { IoCameraOutline } from "react-icons/io5";
 const UserProfile = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [image, setImage] = useState("");
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
@@ -28,19 +28,24 @@ const UserProfile = () => {
 
   return (
     <>
-      <div className="user-profile-wrapper">
+      <div className="user-profile-wrapper mt-3">
+        <h5 className="ms-3" style={{ color: "brown" }}>
+          My Profile
+        </h5>
         <Container fluid>
-          <Row className="d-flex gap-5 justify-content-center mt-1">
+          <Row className="d-flex justify-content-between mt-2 mx-1">
             <Col md={6} className="user-profile-left py-3">
               <h5 className="fw-semibold">Profile</h5>
               <hr />
-              <Image src={userImage} rounded className="user-avatar" />
+              <div className="user-avatar">
+                <Image src={userImage} rounded className="position-relative" />
+                <FaCamera className="fs-1 text-primary position-absolute bottom-0 start-0" />
+              </div>
               {/* <IoCameraOutline /> */}
-              <FaCamera className="camera-icon fs-1 text-primary" />
               <Form className="py-2">
                 <Form.Group controlId="validationCustom01">
                   <Form.Label className="user-profile-label">
-                    User Name
+                    User Name<span className="text-danger">*</span>
                   </Form.Label>
                   <Form.Control
                     required
@@ -51,7 +56,9 @@ const UserProfile = () => {
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="validationCustom01" className="mt-2">
-                  <Form.Label className="user-profile-label">Email</Form.Label>
+                  <Form.Label className="user-profile-label">
+                    Email <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     required
                     type="email"
@@ -71,7 +78,10 @@ const UserProfile = () => {
               </Form>
             </Col>
             {/* ------------- */}
-            <Col md={5} className="user-profile-right py-3">
+            <Col
+              md={5}
+              className="user-profile-right pt-3 pb-3 me-5 mt-md-0 mt-3"
+            >
               <h5 className="ms-3 fw-semibold">Change password</h5>
               <hr />
               <Form>

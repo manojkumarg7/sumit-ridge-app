@@ -43,7 +43,7 @@ const SignUp = () => {
                     required
                   />
                   <Form.Control.Feedback type="invalid">
-                    Please choose a username.
+                    Enter username
                   </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
@@ -58,7 +58,7 @@ const SignUp = () => {
                     required
                   />
                   <Form.Control.Feedback type="invalid">
-                    Please choose a username.
+                    Enter Valid Email
                   </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>

@@ -29,7 +29,7 @@ const NavComp = ({ setSidebarVisible }) => {
   const navigate = useNavigate();
 
   const handleUpdateNavigate = () => {
-    navigate("/sumit-ridge-app/update");
+    navigate("/sumit-ridge-app/profile-page");
   };
 
   const handleNavigate = () => {
@@ -90,9 +90,6 @@ const NavComp = ({ setSidebarVisible }) => {
               <GrFormNextLink className="text-muted fs-3" />
             </Dropdown.Item>
           </DropdownButton>
-          {/* Notifications */}
-
-          {/* ---Message icon -- */}
 
           <DropdownButton
             id="dropdown-basic-button"
@@ -138,8 +135,6 @@ const NavComp = ({ setSidebarVisible }) => {
               <GrFormNextLink className="text-muted fs-3" />
             </Dropdown.Item>
           </DropdownButton>
-
-          {/* ---Message icon -- */}
           <DropdownButton
             id="dropdown-avatar-button"
             className="me-md-2 me-0"

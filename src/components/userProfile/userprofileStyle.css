@@ -22,8 +22,3 @@
 .user-profile-left .user-avatar {
   position: relative;
 }
-.user-profile-left .camera-icon {
-  position: absolute;
-  left: 118px;
-  top: 156px;
-}
