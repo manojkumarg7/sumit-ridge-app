@@ -31,10 +31,7 @@ function App() {
             path="/sumit-ridge-app/input-utility"
             element={<PasswordInput />}
           />
-          <Route
-            path="/sumit-ridge-app/update-profile"
-            element={<UserProfile />}
-          />
+          <Route path="/sumit-ridge-app/update" element={<UserProfile />} />
         </Routes>
       </BrowserRouter>
     </div>
