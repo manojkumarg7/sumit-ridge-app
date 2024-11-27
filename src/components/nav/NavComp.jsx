@@ -28,6 +28,10 @@ const NavComp = ({ setSidebarVisible }) => {
 
   const navigate = useNavigate();
 
+  const handleUpdateNavigate = () => {
+    navigate("/sumit-ridge-app/update");
+  };
+
   const handleNavigate = () => {
     navigate("/sumit-ridge-app/login");
   };
@@ -158,25 +162,20 @@ const NavComp = ({ setSidebarVisible }) => {
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item
-              href="/sumit-ridge-app/update"
               className="text-muted"
+              onClick={handleUpdateNavigate}
             >
-              {/* <Link to={"/sumit-ridge-app/update-profile"}> */}
               <CiUser className="fs-5 me-2 text-primary" />
               My Profile
-              {/* </Link> */}
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item
-              href="/sumit-ridge-app/login"
               as="button"
               className="text-muted"
               onClick={handleNavigate}
             >
-              {/* <Link to="/sumit-ridge-app/login"> */}
               <LiaSignOutAltSolid className="fs-5 me-2 text-danger" />
               Signout
-              {/* </Link> */}
             </Dropdown.Item>
           </DropdownButton>
         </div>
