@@ -157,9 +157,14 @@ const NavComp = ({ setSidebarVisible }) => {
               <p className="text-center">Technician</p>
             </Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item href="#/action-2" className="text-muted">
+            <Dropdown.Item
+              href="/sumit-ridge-app/update-profile"
+              className="text-muted"
+            >
+              {/* <Link to={"/sumit-ridge-app/update-profile"}> */}
               <CiUser className="fs-5 me-2 text-primary" />
               My Profile
+              {/* </Link> */}
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item

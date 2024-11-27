@@ -357,7 +357,6 @@ const NewComp = ({ dogId }) => {
                     >
                       Active
                     </label>
-
                     <input
                       type="radio"
                       className="btn-check"

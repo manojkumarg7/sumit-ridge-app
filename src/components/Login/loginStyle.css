@@ -33,9 +33,9 @@
   background-color: rgb(123, 26, 26);
 }
 
-.login-forget-text:hover {
+/* .login-forget-text:hover {
   text-decoration: underline;
-}
+} */
 
 @media (max-width: 800px) {
   .left-content {

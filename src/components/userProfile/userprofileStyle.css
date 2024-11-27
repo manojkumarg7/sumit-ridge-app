@@ -1,20 +1,29 @@
-.user-profile-wrapper {
-  background-image: url("../../assets/images/login-bg.jpg");
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.user-profile-left {
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
-.user-profile-label {
-  color: brown;
+.user-profile-right {
+  height: 300px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.input-field {
+  width: 100%;
 }
 
 .user-profile-btn {
+  float: right;
   background-color: brown !important;
   border: 0;
 }
-.user-profile-btn:hover {
-  background-color: brown;
+
+.user-profile-left .user-avatar {
+  position: relative;
+}
+.user-profile-left .camera-icon {
+  position: absolute;
+  left: 118px;
+  top: 156px;
 }

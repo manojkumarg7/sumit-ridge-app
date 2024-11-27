@@ -4,13 +4,13 @@ import logow from "../../assets/images/srf-favicon.png";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { FaUser } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { GrFormPreviousLink } from "react-icons/gr";
 import { FaEyeSlash } from "react-icons/fa";
 import PostLogin from "../../api/loginApis/loginPost/PostLogin";
+import PasswordInput from "../../utilities/passwordinput/PasswordInput";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -31,8 +31,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email && !password) {
-      alert("fields should required");
+    if (email === "" || password === "") {
+      alert("All fields should be filled");
     } else {
       const result = await PostLogin(email, password);
       if (result) {
@@ -60,9 +60,6 @@ const Login = () => {
             </div>
             <Form className="mt-5" onSubmit={handleSubmit}>
               <InputGroup className="mb-3 px-3">
-                {/* <InputGroup.Text id="basic-addon1">
-                  <FaUser className="icon" />
-                </InputGroup.Text> */}
                 <Form.Control
                   type="email"
                   value={email}
@@ -70,28 +67,14 @@ const Login = () => {
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                   onChange={handleEmailChange}
+                  required
                 />
               </InputGroup>
-              <InputGroup className="mb-3 px-3">
-                <Form.Control
-                  type={eyeToggle ? "password" : "text"}
-                  value={password}
-                  placeholder="Password"
-                  aria-label="Password"
-                  aria-describedby="basic-addon2"
-                  onChange={handlePasswordChange}
-                />
-                <InputGroup.Text
-                  id="basic-addon2"
-                  onClick={handlePasswordToggle}
-                >
-                  {eyeToggle ? (
-                    <FaEyeSlash className="icon" />
-                  ) : (
-                    <FaEye className="icon" />
-                  )}
-                </InputGroup.Text>
-              </InputGroup>
+              <PasswordInput
+                password={password}
+                onChange={handlePasswordChange}
+                placeholder="Password"
+              />
               <Button
                 variant="primary"
                 type="submit"
@@ -100,16 +83,16 @@ const Login = () => {
                 Login
               </Button>
               <p className="text-center mt-3">
+                {/* <Link to="/sumit-ridge-app/forget"> */}
+                <span className="login-info login-forget-text">
+                  Don't have an account ?
+                </span>
                 <Link to={"/sumit-ridge-app/signup"}>
-                  <span className="text-primary text-decoration-underline">
+                  <span className="text-info text-decoration-underline ms-1">
                     Signup
                   </span>
                 </Link>
-                {/* <Link to="/sumit-ridge-app/forget">
-                  <span className="login-info login-forget-text">
-                    Forgot password?
-                  </span>
-                </Link> */}
+                {/* </Link> */}
               </p>
               {/* <p className="text-center mt-2">
                 <Link to="/sumit-ridge-app">

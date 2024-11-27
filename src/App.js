@@ -11,6 +11,7 @@ import Login from "./components/Login/Login";
 import SignUp from "./components/signUp/SignUp";
 import Forget from "./components/forgetpassword/Forget";
 import UserProfile from "./components/userProfile/UserProfile";
+import PasswordInput from "./utilities/passwordinput/PasswordInput";
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
           <Route path="/sumit-ridge-app/login" element={<Login />} />
           <Route path="/sumit-ridge-app/signup" element={<SignUp />} />
           <Route path="/sumit-ridge-app/forget" element={<Forget />} />
+          <Route
+            path="/sumit-ridge-app/input-utility"
+            element={<PasswordInput />}
+          />
           <Route
             path="/sumit-ridge-app/update-profile"
             element={<UserProfile />}

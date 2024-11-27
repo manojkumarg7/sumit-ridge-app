@@ -6,8 +6,16 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import "./signupStyle.css";
+import { Link } from "react-router-dom";
+import PasswordInput from "../../utilities/passwordinput/PasswordInput";
 const SignUp = () => {
   const [validated, setValidated] = useState(false);
+
+  const [signPassword, setSignPassword] = useState("");
+
+  const handleChangePassword = (e) => {
+    setSignPassword(e.target.value);
+  };
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -45,7 +53,7 @@ const SignUp = () => {
                 <InputGroup hasValidation>
                   <Form.Control
                     type="email"
-                    placeholder="Username"
+                    placeholder="Email"
                     aria-describedby="inputGroupPrepend"
                     required
                   />
@@ -54,27 +62,24 @@ const SignUp = () => {
                   </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
-              <Form.Group
-                md="4"
-                controlId="validationCustom02"
-                className="mt-2"
-              >
-                <Form.Label className="text-light">Password</Form.Label>
-                <Form.Control required type="password" placeholder="Password" />
-                <Form.Control.Feedback type="invalid">
-                  Looks good!
-                </Form.Control.Feedback>
-              </Form.Group>
+              <Form.Label className="text-light mt-2">Password</Form.Label>
+              <PasswordInput
+                password={signPassword}
+                onChange={handleChangePassword}
+                placeholder="Password"
+              />
             </Row>
             <Button type="submit" className="sign-up-btn w-100">
-              Submit form
+              Submit
             </Button>
-            <Button variant="dark" className="w-100 mt-3">
-              Back to login
-            </Button>
-            {/* <Button variant="outline-secondary" className="w-100 mt-3">
-              Secondary
-            </Button> */}
+            <Link to="/sumit-ridge-app/login">
+              <Button
+                variant="outline-secondary"
+                className="sign-in-login-btn w-100 mt-3 text-light border border-light"
+              >
+                Back to login
+              </Button>
+            </Link>
           </Form>
         </div>
       </div>
