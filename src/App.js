@@ -13,6 +13,7 @@ import Forget from "./components/forgetpassword/Forget";
 import UserProfile from "./components/userProfile/UserProfile";
 import PasswordInput from "./utilities/passwordinput/PasswordInput";
 import ProfilePage from "./pages/profilePage/ProfilePage";
+import GetSignInApi from "./api/signInApis/GetSignInApi";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/sumit-ridge-app/login" element={<Login />} />
           <Route path="/sumit-ridge-app/signup" element={<SignUp />} />
           <Route path="/sumit-ridge-app/forget" element={<Forget />} />
+          <Route path="/sumit-ridge-app/june" element={<GetSignInApi />} />
           <Route
             path="/sumit-ridge-app/input-utility"
             element={<PasswordInput />}

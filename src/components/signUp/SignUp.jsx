@@ -8,22 +8,45 @@ import Row from "react-bootstrap/Row";
 import "./signupStyle.css";
 import { Link } from "react-router-dom";
 import PasswordInput from "../../utilities/passwordinput/PasswordInput";
+import SignInApi from "../../api/signInApis/SignInApi";
 const SignUp = () => {
-  const [validated, setValidated] = useState(false);
-
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [signPassword, setSignPassword] = useState("");
 
+  const handleChangeUsername = (e) => {
+    console.log(e.target.value);
+    setUsername(e.target.value);
+  };
+
+  const handleChangeEmail = (e) => {
+    console.log(e.target.value);
+    setEmail(e.target.value);
+  };
+
   const handleChangePassword = (e) => {
+    console.log(e.target.value);
     setSignPassword(e.target.value);
   };
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("Username:", username);
+    console.log("Email:", email);
+    console.log("Password:", signPassword);
+
+    if (username === "" || email === "" || signPassword === "") {
+      alert("All fields are required");
+    } else {
+      const result = await SignInApi(username, email, signPassword);
+      console.log("API result:", result);
+      if (result) {
+        setUsername("");
+        setEmail("");
+        setSignPassword("");
+        console.log("Registered successfully:--", result);
+      }
     }
-    setValidated(true);
   };
 
   return (
@@ -31,16 +54,18 @@ const SignUp = () => {
       <div className="sign-up-wrapper">
         <h1 className="text-light">Sign Up</h1>
         <div className="sign-up-body">
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <Row className="mb-3">
               <Form.Group controlId="validationCustomUsername" className="mt-2">
                 <Form.Label className="text-light">Name</Form.Label>
                 <InputGroup hasValidation>
                   <Form.Control
                     type="text"
+                    value={username}
                     placeholder="Username"
                     aria-describedby="inputGroupPrepend"
                     required
+                    onChange={handleChangeUsername}
                   />
                   <Form.Control.Feedback type="invalid">
                     Enter username
@@ -53,9 +78,11 @@ const SignUp = () => {
                 <InputGroup hasValidation>
                   <Form.Control
                     type="email"
+                    value={email}
                     placeholder="Email"
                     aria-describedby="inputGroupPrepend"
                     required
+                    onChange={handleChangeEmail}
                   />
                   <Form.Control.Feedback type="invalid">
                     Enter Valid Email

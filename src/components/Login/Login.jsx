@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./loginStyle.css";
 import logow from "../../assets/images/srf-favicon.png";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { RiLockPasswordFill } from "react-icons/ri";
 import Button from "react-bootstrap/Button";
-import { FaEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { GrFormPreviousLink } from "react-icons/gr";
-import { FaEyeSlash } from "react-icons/fa";
-import PostLogin from "../../api/loginApis/loginPost/PostLogin";
 import PasswordInput from "../../utilities/passwordinput/PasswordInput";
+import GetSignInApi from "../../api/signInApis/GetSignInApi";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [eyeToggle, setEyeToggle] = useState(true);
+  const [userData, setUserData] = useState([]); // Store user data from API
+  const navigate = useNavigate(); // Hook to navigate after successful login
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
@@ -28,23 +28,32 @@ const Login = () => {
     setEyeToggle(!eyeToggle);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (email === "" || password === "") {
       alert("All fields should be filled");
+      return;
+    }
+
+    // Check if user exists with the correct email and password
+    const user = userData.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    if (user) {
+      console.log("Login successful, user data: ", user);
+      // Navigate to dashboard if credentials are correct
+      navigate("/sumit-ridge-app");
     } else {
-      const result = await PostLogin(email, password);
-      if (result) {
-        setEmail("");
-        setPassword("");
-        console.log("Login successful, user data: ", result);
-      }
+      alert("Invalid credentials");
     }
   };
 
   return (
     <React.Fragment>
+      <GetSignInApi setUserData={setUserData} />{" "}
+      {/* Fetch user data on component mount */}
       <div className="login-wrapper">
         <div className="container w-100 h-100 d-md-flex justify-content-between align-items-center flex-wrap gap-0">
           <div className="left-content align-self-start">
@@ -83,22 +92,15 @@ const Login = () => {
                 Login
               </Button>
               <p className="text-center mt-3">
-                {/* <Link to="/sumit-ridge-app/forget"> */}
                 <span className="login-info login-forget-text">
                   Don't have an account ?
                 </span>
-                <Link to={"/sumit-ridge-app/signup"}>
+                <Link to={"/signup"}>
                   <span className="text-info text-decoration-underline ms-1">
                     Signup
                   </span>
                 </Link>
-                {/* </Link> */}
               </p>
-              {/* <p className="text-center mt-2">
-                <Link to="/sumit-ridge-app">
-                  <GrFormPreviousLink className="h5 me-3 text-danger text-center" />
-                </Link>
-              </p> */}
             </Form>
           </div>
         </div>
