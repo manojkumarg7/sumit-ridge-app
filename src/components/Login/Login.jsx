@@ -8,13 +8,14 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import Button from "react-bootstrap/Button";
 import PasswordInput from "../../utilities/passwordinput/PasswordInput";
 import GetSignInApi from "../../api/signInApis/GetSignInApi";
-
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [eyeToggle, setEyeToggle] = useState(true);
-  const [userData, setUserData] = useState([]); // Store user data from API
-  const navigate = useNavigate(); // Hook to navigate after successful login
+  const [userData, setUserData] = useState([]);
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -36,24 +37,22 @@ const Login = () => {
       return;
     }
 
-    // Check if user exists with the correct email and password
     const user = userData.find(
       (user) => user.email === email && user.password === password
     );
 
     if (user) {
       console.log("Login successful, user data: ", user);
-      // Navigate to dashboard if credentials are correct
-      navigate("/sumit-ridge-app");
+      navigate("/sumit-ridge-app/home");
     } else {
-      alert("Invalid credentials");
+      // toast.success("This is a success message!");
+      alert("Please enter correct email & password");
     }
   };
 
   return (
     <React.Fragment>
       <GetSignInApi setUserData={setUserData} />{" "}
-      {/* Fetch user data on component mount */}
       <div className="login-wrapper">
         <div className="container w-100 h-100 d-md-flex justify-content-between align-items-center flex-wrap gap-0">
           <div className="left-content align-self-start">
@@ -95,7 +94,7 @@ const Login = () => {
                 <span className="login-info login-forget-text">
                   Don't have an account ?
                 </span>
-                <Link to={"/signup"}>
+                <Link to={"/sumit-ridge-app/signup"}>
                   <span className="text-info text-decoration-underline ms-1">
                     Signup
                   </span>

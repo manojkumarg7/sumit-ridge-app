@@ -20,9 +20,7 @@ const GetSignInApi = ({ setUserData }) => {
     };
     fetchApi();
 
-    return () => {
-      // Cleanup code here if needed (e.g., abort controller)
-    };
+    return () => {};
   }, [setUserData]);
 
   return null;

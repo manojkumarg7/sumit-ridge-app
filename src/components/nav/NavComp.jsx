@@ -33,7 +33,7 @@ const NavComp = ({ setSidebarVisible }) => {
   };
 
   const handleNavigate = () => {
-    navigate("/sumit-ridge-app/login");
+    navigate("/sumit-ridge-app/");
   };
 
   return (

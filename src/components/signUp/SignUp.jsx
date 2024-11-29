@@ -6,14 +6,14 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import "./signupStyle.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../../utilities/passwordinput/PasswordInput";
 import SignInApi from "../../api/signInApis/SignInApi";
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [signPassword, setSignPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleChangeUsername = (e) => {
     console.log(e.target.value);
     setUsername(e.target.value);
@@ -41,10 +41,11 @@ const SignUp = () => {
       const result = await SignInApi(username, email, signPassword);
       console.log("API result:", result);
       if (result) {
+        navigate("/sumit-ridge-app/home");
         setUsername("");
         setEmail("");
         setSignPassword("");
-        console.log("Registered successfully:--", result);
+        console.log("Registered successfully", result);
       }
     }
   };

@@ -18,7 +18,7 @@ const SignInApi = async (username, email, signPassword) => {
     });
 
     if (response.ok) {
-      alert("Registerd data submitted SuccessFully");
+      alert("SuccessFully signIn");
       console.log("console message :Registerd data submitted SuccessFully");
       return response.json();
     } else {
