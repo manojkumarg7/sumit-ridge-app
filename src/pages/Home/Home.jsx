@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavComp from "../../components/nav/NavComp";
 import Footer from "../../components/footer/Footer";
 import HomeTable from "../../components/HomeTable/HomeTable";
@@ -8,25 +8,31 @@ import GetData from "../../api/get/GetData";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import MainChart from "../../components/chart/MainChart";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const navigate = useNavigate();
 
-  // ---- modal box
+  useEffect(() => {
+    let username = sessionStorage.getItem("username");
+    if (username === "" || username === null) {
+      navigate("/sumit-ridge-app");
+    }
+  }, []);
+
   const handleClose = () => {
     setShow(false);
-    setDeleteId(null); // Reset the delete ID when the modal is closed
+    setDeleteId(null);
   };
 
   const handleShow = (id) => {
     if (id !== "") {
-      setDeleteId(id); // Store the ID of the item to be deleted
-      setShow(true); // Show the modal
+      setDeleteId(id);
+      setShow(true);
     }
   };
 
@@ -42,7 +48,7 @@ const Home = () => {
         console.log(`Deleted item with id: ${deleteId}`);
         setData((prevData) => prevData.filter((item) => item.id !== deleteId));
       }
-      handleClose(); // Close the modal after deletion
+      handleClose();
     }
   };
 

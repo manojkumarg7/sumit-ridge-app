@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
@@ -9,11 +8,17 @@ import "./signupStyle.css";
 import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../../utilities/passwordinput/PasswordInput";
 import SignInApi from "../../api/signInApis/SignInApi";
+import Modal from "react-bootstrap/Modal";
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [signPassword, setSignPassword] = useState("");
+  const [signConfirmPassword, setSignConfirmPassword] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false);
   const navigate = useNavigate();
+
   const handleChangeUsername = (e) => {
     console.log(e.target.value);
     setUsername(e.target.value);
@@ -28,28 +33,54 @@ const SignUp = () => {
     console.log(e.target.value);
     setSignPassword(e.target.value);
   };
+  const handleChangeConfirmPassword = (e) => {
+    console.log(e.target.value);
+    setSignConfirmPassword(e.target.value);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Username:", username);
     console.log("Email:", email);
     console.log("Password:", signPassword);
+    console.log("Password:", signConfirmPassword);
 
-    if (username === "" || email === "" || signPassword === "") {
-      alert("All fields are required");
+    if (
+      username === "" ||
+      email === "" ||
+      signPassword === "" ||
+      signConfirmPassword === ""
+    ) {
+      setMessage("All fields are required");
+      setShowModal(true);
     } else {
-      const result = await SignInApi(username, email, signPassword);
+      const result = await SignInApi(
+        username,
+        email,
+        signPassword,
+        signConfirmPassword,
+        setShowModal,
+        setMessage
+      );
       console.log("API result:", result);
       if (result) {
-        navigate("/sumit-ridge-app/home");
-        setUsername("");
-        setEmail("");
-        setSignPassword("");
-        console.log("Registered successfully", result);
+        setIsRegistered(true);
+        setMessage("Registered successfully!");
+        setShowModal(true);
+        // navigate("/sumit-ridge-app");
+      } else {
+        setMessage("Registration failed. Please try again.");
+        setShowModal(true);
       }
     }
   };
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+    if (isRegistered) {
+      navigate("/sumit-ridge-app/home");
+    }
+  };
   return (
     <>
       <div className="sign-up-wrapper">
@@ -73,7 +104,6 @@ const SignUp = () => {
                   </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
-
               <Form.Group controlId="validationCustomUsername" className="mt-2">
                 <Form.Label className="text-light">Email</Form.Label>
                 <InputGroup hasValidation>
@@ -96,11 +126,21 @@ const SignUp = () => {
                 onChange={handleChangePassword}
                 placeholder="Password"
               />
+              <Form.Label className="text-light">Confirm password</Form.Label>
+              <PasswordInput
+                password={signConfirmPassword}
+                onChange={handleChangeConfirmPassword}
+                placeholder="Confirm password"
+              />
             </Row>
-            <Button type="submit" className="sign-up-btn w-100">
+            <Button
+              type="submit"
+              className="sign-up-btn w-100"
+              onClick={handleSubmit}
+            >
               Submit
             </Button>
-            <Link to="/sumit-ridge-app/login">
+            <Link to="/sumit-ridge-app/">
               <Button
                 variant="outline-secondary"
                 className="sign-in-login-btn w-100 mt-3 text-light border border-light"
@@ -111,6 +151,18 @@ const SignUp = () => {
           </Form>
         </div>
       </div>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Sign In Feedback</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{message}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseModal}>
+            ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

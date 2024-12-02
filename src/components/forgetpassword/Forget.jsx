@@ -11,7 +11,7 @@ const Forget = () => {
       <div className="forgetcomp-wrapper">
         <div className="forgetcomp-body rounded-3">
           <div>
-            <Link to="/sumit-ridge-app/login">
+            <Link to="/sumit-ridge-app/">
               {" "}
               <GrFormPreviousLink className="h5 me-3 text-danger" />
             </Link>

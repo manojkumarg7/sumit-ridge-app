@@ -41,7 +41,11 @@ const NavComp = ({ setSidebarVisible }) => {
       <Navbar className="bg-light justify-content-between fixed-top">
         <div className="ps-md-4 ps-2 dif-flex">
           <img className="logo" src={bg} alt="background" />
-          <BsList className="icons fs-2 ms-md-4 ms-1  " onClick={handleClick} />
+          <BsList
+            className="icons fs-2 ms-md-4 ms-1"
+            // className="icons fs-md-2 fs-1 ms-md-4 ms-1"
+            onClick={handleClick}
+          />
         </div>
         <div className="dif-flex gap-3">
           <DropdownButton

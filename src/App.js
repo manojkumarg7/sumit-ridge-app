@@ -4,7 +4,6 @@ import { Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import NewAnimalPage from "./pages/newAnimalPage/NewAnimalPage";
 import GetData from "./api/get/GetData";
-import PostData from "./api/post/PostData";
 import PieChart from "./components/chart/PieChart";
 import MainChart from "./components/chart/MainChart";
 import Login from "./components/Login/Login";

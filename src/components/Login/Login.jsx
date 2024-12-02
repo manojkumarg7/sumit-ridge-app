@@ -4,18 +4,24 @@ import "./loginStyle.css";
 import logow from "../../assets/images/srf-favicon.png";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import { RiLockPasswordFill } from "react-icons/ri";
 import Button from "react-bootstrap/Button";
 import PasswordInput from "../../utilities/passwordinput/PasswordInput";
 import GetSignInApi from "../../api/signInApis/GetSignInApi";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import Modal from "react-bootstrap/Modal";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [eyeToggle, setEyeToggle] = useState(true);
   const [userData, setUserData] = useState([]);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    sessionStorage.clear();
+  }, []);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -42,11 +48,11 @@ const Login = () => {
     );
 
     if (user) {
+      sessionStorage.setItem("username", user.email);
       console.log("Login successful, user data: ", user);
       navigate("/sumit-ridge-app/home");
     } else {
-      // toast.success("This is a success message!");
-      alert("Please enter correct email & password");
+      setShow(true);
     }
   };
 
@@ -104,6 +110,19 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-danger">
+            Invalid credentials !
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Please enter correct email & password</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </React.Fragment>
   );
 };
