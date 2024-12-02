@@ -40,37 +40,45 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Username:", username);
-    console.log("Email:", email);
-    console.log("Password:", signPassword);
-    console.log("Password:", signConfirmPassword);
 
-    if (
-      username === "" ||
-      email === "" ||
-      signPassword === "" ||
-      signConfirmPassword === ""
-    ) {
-      setMessage("All fields are required");
+    if (signPassword !== signConfirmPassword) {
+      setMessage("password and confirm password does not match");
       setShowModal(true);
     } else {
-      const result = await SignInApi(
-        username,
-        email,
-        signPassword,
-        signConfirmPassword,
-        setShowModal,
-        setMessage
-      );
-      console.log("API result:", result);
-      if (result) {
-        setIsRegistered(true);
-        setMessage("Registered successfully!");
+      console.log("Username:", username);
+      console.log("Email:", email);
+      console.log("Password:", signPassword);
+      console.log("Password:", signConfirmPassword);
+
+      if (
+        username === "" ||
+        email === "" ||
+        signPassword === "" ||
+        signConfirmPassword === ""
+      ) {
+        setMessage("All fields are required");
         setShowModal(true);
-        // navigate("/sumit-ridge-app");
       } else {
-        setMessage("Registration failed. Please try again.");
-        setShowModal(true);
+        const result = await SignInApi(
+          username,
+          email,
+          signPassword,
+          signConfirmPassword,
+          setShowModal,
+          setMessage
+        );
+        console.log("API result:", result);
+        if (result) {
+          setIsRegistered(true);
+          setMessage(
+            "Registered successfully!Please login using same email id & password"
+          );
+          setShowModal(true);
+          // navigate("/sumit-ridge-app");
+        } else {
+          setMessage("Registration failed. Please try again.");
+          setShowModal(true);
+        }
       }
     }
   };
@@ -136,7 +144,7 @@ const SignUp = () => {
             <Button
               type="submit"
               className="sign-up-btn w-100"
-              onClick={handleSubmit}
+              // onClick={handleSubmit}
             >
               Submit
             </Button>
