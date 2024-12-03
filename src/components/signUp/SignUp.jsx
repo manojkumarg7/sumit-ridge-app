@@ -9,6 +9,9 @@ import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../../utilities/passwordinput/PasswordInput";
 import SignInApi from "../../api/signInApis/SignInApi";
 import Modal from "react-bootstrap/Modal";
+import bcrypt from "bcryptjs";
+import CheckEmail from "../../api/loginApis/CheckEmail";
+
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -20,21 +23,17 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const handleChangeUsername = (e) => {
-    console.log(e.target.value);
     setUsername(e.target.value);
   };
 
   const handleChangeEmail = (e) => {
-    console.log(e.target.value);
     setEmail(e.target.value);
   };
 
   const handleChangePassword = (e) => {
-    console.log(e.target.value);
     setSignPassword(e.target.value);
   };
   const handleChangeConfirmPassword = (e) => {
-    console.log(e.target.value);
     setSignConfirmPassword(e.target.value);
   };
 
@@ -42,44 +41,63 @@ const SignUp = () => {
     event.preventDefault();
 
     if (signPassword !== signConfirmPassword) {
-      setMessage("password and confirm password does not match");
+      setMessage("Password and confirm password do not match");
       setShowModal(true);
-    } else {
-      console.log("Username:", username);
-      console.log("Email:", email);
-      console.log("Password:", signPassword);
-      console.log("Password:", signConfirmPassword);
+      return;
+    }
 
-      if (
-        username === "" ||
-        email === "" ||
-        signPassword === "" ||
-        signConfirmPassword === ""
-      ) {
-        setMessage("All fields are required");
+    if (
+      username === "" ||
+      email === "" ||
+      signPassword === "" ||
+      signConfirmPassword === ""
+    ) {
+      setMessage("All fields are required");
+      setShowModal(true);
+      return;
+    }
+
+    try {
+      const emailExists = await CheckEmail(email);
+      if (emailExists) {
+        setMessage("user already present");
+        setShowModal(true);
+        return;
+      }
+
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(signPassword, saltRounds);
+      console.log("Hashed Password: ", hashedPassword);
+
+      const hashedConfirmPassword = await bcrypt.hash(
+        signConfirmPassword,
+        saltRounds
+      );
+      console.log("Hashed confirm Password: ", hashedConfirmPassword);
+
+      const result = await SignInApi(
+        username,
+        email,
+        hashedPassword,
+        hashedConfirmPassword,
+        setShowModal,
+        setMessage
+      );
+
+      if (result) {
+        setIsRegistered(true);
+        setMessage(
+          "Registered successfully! Please login using the same email id & password"
+        );
         setShowModal(true);
       } else {
-        const result = await SignInApi(
-          username,
-          email,
-          signPassword,
-          signConfirmPassword,
-          setShowModal,
-          setMessage
-        );
-        console.log("API result:", result);
-        if (result) {
-          setIsRegistered(true);
-          setMessage(
-            "Registered successfully!Please login using same email id & password"
-          );
-          setShowModal(true);
-          // navigate("/sumit-ridge-app");
-        } else {
-          setMessage("Registration failed. Please try again.");
-          setShowModal(true);
-        }
+        setMessage("Registration failed. Please try again.");
+        setShowModal(true);
       }
+    } catch (error) {
+      console.error("Error hashing password:", error);
+      setMessage("An error occurred during registration.");
+      setShowModal(true);
     }
   };
 
@@ -141,11 +159,7 @@ const SignUp = () => {
                 placeholder="Confirm password"
               />
             </Row>
-            <Button
-              type="submit"
-              className="sign-up-btn w-100"
-              // onClick={handleSubmit}
-            >
+            <Button type="submit" className="sign-up-btn w-100">
               Submit
             </Button>
             <Link to="/sumit-ridge-app/">

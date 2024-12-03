@@ -28,7 +28,6 @@ const SignInApi = async (
     if (response.ok) {
       setMessage("Successfully signed in!");
       setShowModal(true);
-      // alert("SuccessFully signIn");
       console.log("console message :Registerd data submitted SuccessFully");
       return response.json();
     } else {

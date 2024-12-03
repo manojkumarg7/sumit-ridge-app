@@ -8,6 +8,8 @@ import Button from "react-bootstrap/Button";
 import PasswordInput from "../../utilities/passwordinput/PasswordInput";
 import GetSignInApi from "../../api/signInApis/GetSignInApi";
 import Modal from "react-bootstrap/Modal";
+import bcrypt from "bcryptjs";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +37,7 @@ const Login = () => {
     setEyeToggle(!eyeToggle);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (email === "" || password === "") {
@@ -43,14 +45,18 @@ const Login = () => {
       return;
     }
 
-    const user = userData.find(
-      (user) => user.email === email && user.password === password
-    );
+    const user = userData.find((user) => user.email === email);
 
     if (user) {
-      sessionStorage.setItem("username", user.email);
-      console.log("Login successful, user data: ", user);
-      navigate("/sumit-ridge-app/home");
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (isMatch) {
+        sessionStorage.setItem("username", user.email);
+        console.log("Login successful, user data: ", user);
+        navigate("/sumit-ridge-app/home");
+      } else {
+        setShow(true);
+      }
     } else {
       setShow(true);
     }
@@ -58,7 +64,7 @@ const Login = () => {
 
   return (
     <React.Fragment>
-      <GetSignInApi setUserData={setUserData} />{" "}
+      <GetSignInApi setUserData={setUserData} />
       <div className="login-wrapper">
         <div className="container w-100 h-100 d-md-flex justify-content-between align-items-center flex-wrap gap-0">
           <div className="left-content align-self-start">
