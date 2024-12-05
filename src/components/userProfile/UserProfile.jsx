@@ -5,25 +5,36 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import userImage from "../../assets/images/profile-img.jpg";
-import InputGroup from "react-bootstrap/InputGroup";
-import { FaEye } from "react-icons/fa";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import PasswordInput from "../../utilities/passwordinput/PasswordInput";
 import { FaCamera } from "react-icons/fa";
-import { IoCameraOutline } from "react-icons/io5";
 
 const UserProfile = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
   const handleConfirmPasswordChnage = (e) => {
     setConfirmPassword(e.target.value);
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result); // This will set the image as the source for the avatar
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleClickCameraIcon = () => {
+    document.getElementById("fileInput").click();
   };
 
   return (
@@ -38,10 +49,28 @@ const UserProfile = () => {
               <h5 className="fw-semibold">Profile</h5>
               <hr />
               <div className="user-avatar">
-                <Image src={userImage} rounded className="position-relative" />
-                <FaCamera className="fs-1 text-primary position-absolute bottom-0 start-0" />
+                <Image
+                  className="user-profile-image position-relative"
+                  src={image || userImage}
+                  rounded
+                  width={100}
+                  height={100}
+                />
+
+                <div className="user-wrapper position-absolute bottom-0 start-0">
+                  <FaCamera
+                    className="user-icon fs-5"
+                    onClick={handleClickCameraIcon}
+                  />
+                </div>
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleImageChange}
+                />
               </div>
-              {/* <IoCameraOutline /> */}
               <Form className="py-2">
                 <Form.Group controlId="validationCustom01">
                   <Form.Label className="user-profile-label">
@@ -64,6 +93,7 @@ const UserProfile = () => {
                     type="email"
                     placeholder="Email"
                     className="input-field"
+                    disabled
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
