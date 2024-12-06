@@ -9,6 +9,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import PasswordInput from "../../utilities/passwordinput/PasswordInput";
 import { FaCamera } from "react-icons/fa";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const UserProfile = () => {
   const [password, setPassword] = useState("");
@@ -27,7 +29,7 @@ const UserProfile = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result); // This will set the image as the source for the avatar
+        setImage(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -40,8 +42,10 @@ const UserProfile = () => {
   return (
     <>
       <div className="user-profile-wrapper mt-3">
-        <h5 className="ms-3" style={{ color: "brown" }}>
-          My Profile
+        <h5 className="ms-3">
+          <Link to={"/sumit-ridge-app/home"} style={{ color: "brown" }}>
+            <IoMdArrowRoundBack /> My Profile
+          </Link>
         </h5>
         <Container fluid>
           <Row className="d-flex justify-content-between mt-2 mx-1">
@@ -55,8 +59,8 @@ const UserProfile = () => {
                   rounded
                   width={100}
                   height={100}
+                  style={{ border: "2px solid #A9A9A9" }}
                 />
-
                 <div className="user-wrapper position-absolute bottom-0 start-0">
                   <FaCamera
                     className="user-icon fs-5"
@@ -84,6 +88,18 @@ const UserProfile = () => {
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
+                {/* <Form.Group controlId="validationCustom01">
+                  <Form.Label className="user-profile-label">
+                    Designation<span className="text-danger">*</span>
+                  </Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    placeholder="User Name"
+                    className="input-field"
+                  />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group> */}
                 <Form.Group controlId="validationCustom01" className="mt-2">
                   <Form.Label className="user-profile-label">
                     Email <span className="text-danger">*</span>
@@ -107,7 +123,6 @@ const UserProfile = () => {
                 </Button>
               </Form>
             </Col>
-            {/* ------------- */}
             <Col
               md={5}
               className="user-profile-right pt-3 pb-3 me-5 mt-md-0 mt-3"

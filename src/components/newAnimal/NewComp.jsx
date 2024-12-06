@@ -156,8 +156,8 @@ const NewComp = ({ dogId }) => {
   return (
     <div>
       <div className="page-title d-flex align-items-center gap-2 ms-3">
-        <Link to={"/sumit-ridge-app"}>
-          <GrLinkPrevious className="fw-bold fs-5" />
+        <Link to={"/sumit-ridge-app/home"}>
+          <GrLinkPrevious className="fw-bold fs-5" style={{ color: "brown" }} />
         </Link>
         <h5 className="fw-semibold text-left my-3">{id ? "Edit" : "Add"}</h5>
       </div>
@@ -378,7 +378,7 @@ const NewComp = ({ dogId }) => {
               </div>
             </Row>
             <div className="d-flex justify-content-between mt-4">
-              <Link to={"/sumit-ridge-app"}>
+              <Link to={"/sumit-ridge-app/home"}>
                 <Button
                   variant="light"
                   className="border-2 border-dark text-danger"

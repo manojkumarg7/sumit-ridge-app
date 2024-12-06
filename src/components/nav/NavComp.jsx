@@ -149,15 +149,18 @@ const NavComp = ({ setSidebarVisible }) => {
               <div className="d-flex align-items-center">
                 <img src={avatar} alt="User Avatar" className="avatar-img" />
                 <h6 className="user-name ms-2 mb-0 d-md-block d-none fw-bold">
-                  K.Anderson
+                  {sessionStorage.getItem("username")}
                 </h6>
                 <FaSortDown className="icons fs-6 d-md-block d-none" />
               </div>
             }
           >
             <Dropdown.Item href="#/action-1" className="divider">
-              <h5 className="text-center">Kevin Anderson</h5>
-              <p className="text-center">Technician</p>
+              <h5 className="text-center">
+                {" "}
+                {sessionStorage.getItem("username")}
+              </h5>
+              <p className="text-center">Developer</p>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item

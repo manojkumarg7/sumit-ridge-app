@@ -51,7 +51,8 @@ const Login = () => {
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (isMatch) {
-        sessionStorage.setItem("username", user.email);
+        sessionStorage.setItem("email", user.email);
+        sessionStorage.setItem("username", user.username);
         console.log("Login successful, user data: ", user);
         navigate("/sumit-ridge-app/home");
       } else {
