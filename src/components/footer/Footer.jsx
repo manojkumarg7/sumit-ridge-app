@@ -11,7 +11,10 @@ const Footer = () => {
           <img src={footerimg} alt="" className="logo" />
         </Form>
         <Form>
-          <p className="text-info fs-6 fs-md-2 mb-0">
+          <p
+            className="fs-6 fs-md-2 mb-0 fw-semibold"
+            style={{ color: "#255d8b" }}
+          >
             ©2024 By Summit Ridge Farms
           </p>
         </Form>

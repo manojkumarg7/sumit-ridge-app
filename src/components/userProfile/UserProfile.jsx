@@ -88,24 +88,13 @@ const UserProfile = () => {
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                {/* <Form.Group controlId="validationCustom01">
-                  <Form.Label className="user-profile-label">
-                    Designation<span className="text-danger">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    placeholder="User Name"
-                    className="input-field"
-                  />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                </Form.Group> */}
                 <Form.Group controlId="validationCustom01" className="mt-2">
                   <Form.Label className="user-profile-label">
                     Email <span className="text-danger">*</span>
                   </Form.Label>
                   <Form.Control
                     required
+                    value={sessionStorage.getItem("email")}
                     type="email"
                     placeholder="Email"
                     className="input-field"

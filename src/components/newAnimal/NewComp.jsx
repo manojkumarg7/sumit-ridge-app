@@ -35,7 +35,7 @@ const NewComp = ({ dogId }) => {
   const handleClose = () => {
     setShow(false);
     if (shouldNavigate) {
-      navigate("/sumit-ridge-app");
+      navigate("/sumit-ridge-app/home");
     }
   };
   const handleShow = () => setShow(true);
