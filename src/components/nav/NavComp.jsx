@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import bg from "../../assets/images/srf-favicon.png";
@@ -16,10 +16,32 @@ import { LiaSignOutAltSolid } from "react-icons/lia";
 import { IoAlertCircleOutline } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 import { GrFormNextLink } from "react-icons/gr";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const NavComp = ({ setSidebarVisible }) => {
   const [isToggle, setToggle] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  const email = sessionStorage.getItem("email");
+
+  useEffect(() => {
+    if (email) {
+      fetch(
+        `https://672dd775fd8979715643e967.mockapi.io/usertable?email=${email}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.length > 0) {
+            setUserData(data[0]);
+          } else {
+            console.log("No user found with this email.");
+          }
+        })
+        .catch((error) => {
+          console.log("Error fetching user data:", error);
+        });
+    }
+  }, [email]);
 
   const handleClick = () => {
     setToggle(!isToggle);
@@ -35,6 +57,13 @@ const NavComp = ({ setSidebarVisible }) => {
   const handleNavigate = () => {
     navigate("/sumit-ridge-app/");
   };
+
+  const username = userData
+    ? userData.username
+    : sessionStorage.getItem("username");
+  const designation = userData
+    ? userData.designation
+    : sessionStorage.getItem("designation");
 
   return (
     <div className="navbar-wrapper">
@@ -135,6 +164,7 @@ const NavComp = ({ setSidebarVisible }) => {
               <GrFormNextLink className="text-muted fs-3" />
             </Dropdown.Item>
           </DropdownButton>
+
           <DropdownButton
             id="dropdown-avatar-button"
             className="me-md-2 me-0"
@@ -145,18 +175,15 @@ const NavComp = ({ setSidebarVisible }) => {
               <div className="d-flex align-items-center">
                 <img src={avatar} alt="User Avatar" className="avatar-img" />
                 <h6 className="user-name ms-2 mb-0 d-md-block d-none fw-bold">
-                  {sessionStorage.getItem("username")}
+                  {username}
                 </h6>
                 <FaSortDown className="icons fs-6 d-md-block d-none" />
               </div>
             }
           >
             <Dropdown.Item href="#/action-1" className="divider">
-              <h5 className="text-center">
-                {" "}
-                {sessionStorage.getItem("username")}
-              </h5>
-              <p className="text-center">Developer</p>
+              <h5 className="text-center"> {username}</h5>
+              <p className="text-center">{designation}</p>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item

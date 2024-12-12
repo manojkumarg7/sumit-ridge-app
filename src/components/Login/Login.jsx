@@ -53,6 +53,7 @@ const Login = () => {
       if (isMatch) {
         sessionStorage.setItem("email", user.email);
         sessionStorage.setItem("username", user.username);
+        sessionStorage.setItem("designation", user.designation);
         console.log("Login successful, user data: ", user);
         navigate("/sumit-ridge-app/home");
       } else {

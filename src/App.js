@@ -13,6 +13,7 @@ import UserProfile from "./components/userProfile/UserProfile";
 import PasswordInput from "./utilities/passwordinput/PasswordInput";
 import ProfilePage from "./pages/profilePage/ProfilePage";
 import GetSignInApi from "./api/signInApis/GetSignInApi";
+import GetNav from "./api/GetNavApi/GetNav";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             path="/sumit-ridge-app/profile-page"
             element={<ProfilePage />}
           />
+          <Route path="/sumit-ridge-app/gets" element={<GetNav />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -3,13 +3,11 @@ import NavComp from "../../components/nav/NavComp";
 import Sidebar from "../../components/sidbar/Sidebar";
 import UserProfile from "../../components/userProfile/UserProfile";
 import Footer from "../../components/footer/Footer";
-// import "./profileStyle.css";
 const ProfilePage = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   return (
     <div>
       <NavComp setSidebarVisible={setSidebarVisible} />
-      {/* <NavComp setSidebarVisible={setSidebarVisible} /> */}
       <div className="main-page-wrapper">
         <div
           className={`side-bar-page-component ${
@@ -17,7 +15,6 @@ const ProfilePage = () => {
           }`}
         >
           <Sidebar />
-          {/* <Sidebar /> */}
         </div>
         <div
           className={`main-page-component ${
@@ -25,9 +22,6 @@ const ProfilePage = () => {
           }`}
         >
           <UserProfile />
-
-          {/* <GetData onDataFetched={handleDataFetched} />
-            {dogId && <NewComp dogId={dogId} />} */}
         </div>
       </div>
       <div

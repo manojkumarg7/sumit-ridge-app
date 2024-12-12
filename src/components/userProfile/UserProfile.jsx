@@ -1,42 +1,89 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./userprofileStyle.css";
-import Image from "react-bootstrap/Image";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import userImage from "../../assets/images/profile-img.jpg";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import PasswordInput from "../../utilities/passwordinput/PasswordInput";
-import { FaCamera } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
+import Avatar from "../Avatar/Avatar";
 
 const UserProfile = () => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [image, setImage] = useState(null);
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const [username, setUsername] = useState("");
+  const [designation, setDesignation] = useState("");
+  const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
 
-  const handleConfirmPasswordChnage = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+  useEffect(() => {
+    const savedUsername = sessionStorage.getItem("username");
+    if (savedUsername) {
+      setUsername(savedUsername);
+      setDesignation(sessionStorage.getItem("designation"));
     }
-  };
+  }, []);
 
-  const handleClickCameraIcon = () => {
-    document.getElementById("fileInput").click();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const userData = {
+      username,
+      designation,
+      email,
+    };
+
+    try {
+      const response = await fetch(
+        `https://672dd775fd8979715643e967.mockapi.io/usertable?email=${email}`
+      );
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        const userId = data[0].id;
+
+        const updateResponse = await fetch(
+          `https://672dd775fd8979715643e967.mockapi.io/usertable/${userId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          }
+        );
+
+        if (updateResponse.ok) {
+          const updatedData = await updateResponse.json();
+          console.log("User profile updated:", updatedData);
+          alert("Profile updated successfully!");
+        } else {
+          console.error("Error updating profile:", updateResponse.statusText);
+          alert("Error updating profile. Please try again.");
+        }
+      } else {
+        const createResponse = await fetch(
+          "https://672dd775fd8979715643e967.mockapi.io/usertable",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          }
+        );
+
+        if (createResponse.ok) {
+          const newData = await createResponse.json();
+          console.log("New user profile created:", newData);
+          alert("Profile created successfully!");
+        } else {
+          console.error("Error creating profile:", createResponse.statusText);
+          alert("Error creating profile. Please try again.");
+        }
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      alert("Network error. Please try again.");
+    }
   };
 
   return (
@@ -49,33 +96,12 @@ const UserProfile = () => {
         </h5>
         <Container fluid>
           <Row className="d-flex justify-content-between mt-2 mx-1">
-            <Col md={6} className="user-profile-left py-3">
+            <Col md={12} className="user-profile-left py-3">
               <h5 className="fw-semibold">Profile</h5>
               <hr />
-              <div className="user-avatar">
-                <Image
-                  className="user-profile-image position-relative"
-                  src={image || userImage}
-                  rounded
-                  width={100}
-                  height={100}
-                  style={{ border: "2px solid #A9A9A9" }}
-                />
-                <div className="user-wrapper position-absolute bottom-0 start-0">
-                  <FaCamera
-                    className="user-icon fs-5"
-                    onClick={handleClickCameraIcon}
-                  />
-                </div>
-                <input
-                  id="fileInput"
-                  type="file"
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  onChange={handleImageChange}
-                />
-              </div>
-              <Form className="py-2">
+
+              <Avatar />
+              <Form className="py-2" onSubmit={handleSubmit}>
                 <Form.Group controlId="validationCustom01">
                   <Form.Label className="user-profile-label">
                     User Name<span className="text-danger">*</span>
@@ -83,8 +109,10 @@ const UserProfile = () => {
                   <Form.Control
                     required
                     type="text"
+                    value={username}
                     placeholder="User Name"
-                    className="input-field"
+                    className="input-field w-50"
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
@@ -94,53 +122,25 @@ const UserProfile = () => {
                   </Form.Label>
                   <Form.Control
                     required
-                    value={sessionStorage.getItem("email")}
+                    value={email}
                     type="email"
                     placeholder="Email"
-                    className="input-field"
+                    className="input-field w-50"
                     disabled
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                <Button
-                  type="submit"
-                  className="user-profile-btn mt-3"
-                  size="md"
-                  active
-                >
-                  Save
-                </Button>
-              </Form>
-            </Col>
-            <Col
-              md={5}
-              className="user-profile-right pt-3 pb-3 me-5 mt-md-0 mt-3"
-            >
-              <h5 className="ms-3 fw-semibold">Change password</h5>
-              <hr />
-              <Form>
-                <Form.Group
-                  controlId="validationCustom01"
-                  className="user-profile-card"
-                >
-                  <Form.Label className="user-profile-label ms-3">
-                    Password <span className="text-danger">*</span>
+                <Form.Group controlId="validationCustom02" className="mt-2">
+                  <Form.Label className="user-profile-label">
+                    Designation <span className="text-danger">*</span>
                   </Form.Label>
-                  <PasswordInput
-                    password={password}
-                    placeholder="Password"
-                    onChange={handlePasswordChange}
-                  />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="validationCustom01" className="mt-2">
-                  <Form.Label className="user-profile-label ms-3">
-                    Confirm password <span className="text-danger">*</span>
-                  </Form.Label>
-                  <PasswordInput
-                    password={confirmPassword}
-                    placeholder="Confirm password"
-                    onChange={handleConfirmPasswordChnage}
+                  <Form.Control
+                    required
+                    value={designation}
+                    type="text"
+                    placeholder="Designation"
+                    className="input-field w-50"
+                    onChange={(e) => setDesignation(e.target.value)}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
