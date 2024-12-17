@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Avatar from "../Avatar/Avatar";
 
 const UserProfile = () => {
+  const [image, setImageUrl] = useState("");
   const [username, setUsername] = useState("");
   const [designation, setDesignation] = useState("");
   const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
@@ -19,6 +20,7 @@ const UserProfile = () => {
     if (savedUsername) {
       setUsername(savedUsername);
       setDesignation(sessionStorage.getItem("designation"));
+      setImageUrl(sessionStorage.getItem("image"));
     }
   }, []);
 
@@ -29,6 +31,7 @@ const UserProfile = () => {
       username,
       designation,
       email,
+      image,
     };
 
     try {
@@ -84,6 +87,7 @@ const UserProfile = () => {
       console.error("Network error:", error);
       alert("Network error. Please try again.");
     }
+    setImageUrl("");
   };
 
   return (

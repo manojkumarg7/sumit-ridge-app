@@ -54,6 +54,7 @@ const Login = () => {
         sessionStorage.setItem("email", user.email);
         sessionStorage.setItem("username", user.username);
         sessionStorage.setItem("designation", user.designation);
+        sessionStorage.setItem("image", user.image);
         console.log("Login successful, user data: ", user);
         navigate("/sumit-ridge-app/home");
       } else {

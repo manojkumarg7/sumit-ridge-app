@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import bg from "../../assets/images/srf-favicon.png";
-import avatar from "../../assets/images/profile-img.jpg";
 import "./navbarStyle.css";
 import "../../Styles/main.css";
 import { BsList } from "react-icons/bs";
@@ -17,12 +16,15 @@ import { IoAlertCircleOutline } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 import { GrFormNextLink } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const NavComp = ({ setSidebarVisible }) => {
   const [isToggle, setToggle] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [data, setData] = useState([]);
 
   const email = sessionStorage.getItem("email");
+  const emailFromSession = sessionStorage.getItem("email");
 
   useEffect(() => {
     if (email) {
@@ -42,6 +44,27 @@ const NavComp = ({ setSidebarVisible }) => {
         });
     }
   }, [email]);
+
+  useEffect(() => {
+    axios
+      .get("https://672dd775fd8979715643e967.mockapi.io/usertable")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const user = data.find((user) => user.email === emailFromSession);
+  const defaultImageFileName = "default.jpg";
+
+  const userImageFileName =
+    user && user.avatar ? user.avatar : defaultImageFileName;
+
+  const userImage = userImageFileName.endsWith(".jpg")
+    ? require(`../../assets/avatar/${userImageFileName}`)
+    : require(`../../assets/avatar/${defaultImageFileName}`);
 
   const handleClick = () => {
     setToggle(!isToggle);
@@ -173,7 +196,12 @@ const NavComp = ({ setSidebarVisible }) => {
             align={"end"}
             title={
               <div className="d-flex align-items-center">
-                <img src={avatar} alt="User Avatar" className="avatar-img" />
+                <img
+                  src={userImage}
+                  alt="User Avatar"
+                  className="avatar-img"
+                  style={{ width: "40px", height: "40px" }}
+                />
                 <h6 className="user-name ms-2 mb-0 d-md-block d-none fw-bold">
                   {username}
                 </h6>
